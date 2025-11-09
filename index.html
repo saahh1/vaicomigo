@@ -271,7 +271,7 @@
                 <div class="flex flex-col md:flex-row gap-8">
                     <div class="flex-1">
                         
-                        <a href="https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/@-21.2314803,-45.0123413,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!2m2!1d-45.0011657!2d-21.240885!1m5!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!2m2!1d-44.9768448!2d-21.2276878!3e0?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="group block relative">
+                        <a href="https://www.google.com/maps/place/Universidade+Federal+de+Lavras/" target="_blank" rel="noopener noreferrer" class="group block relative">
                             <img src="mapa-1.png" alt="Mapa da carona" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity" onerror="this.src='https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO+1'; this.onerror=null;">
                             
                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300 rounded-lg mb-6">
@@ -352,7 +352,7 @@
                 <div class="flex flex-col md:flex-row gap-8">
                     <div class="flex-1">
                         
-                        <a href="google.com/maps?sca_esv=7d961831fd6b6efa&output=search&q=CANTINA+UFLA+ATÉ+CENTRO+LAVRAS&source=lnms&fbs=AIIjpHydJdUtNKrM02hj0s4nbm4yS-nYjdQche_l-llub_1h_O2xWOr6YDbaS9P92-AsMkqLZj0r5GtN79pq4orJYn9CowIE6jZcW7BAYbTdJQFh3iNvEgnNRiebHbfhDO_ljH9qLVvS5rp3XTNTFVL1TG8ekGeM5J-Zy3Sos3VkZLoOpICIlqm8KkOlKVuGbQIVSULygAZyw6Qrvlq1fU_JvFglBPiwyA&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener noreferrer" class="group block relative">
+                        <a href="https://www.google.com/maps/place/Centro,+Lavras+-+MG/" target="_blank" rel="noopener noreferrer" class="group block relative">
                             <img src="mapa-2.png" alt="Mapa da carona 2" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity" onerror="this.src='https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO+2'; this.onerror=null;">
                             
                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300 rounded-lg mb-6">
@@ -488,7 +488,7 @@
             
             <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
                 <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 mb-8">
-                    <img src="perfil-sabrina.jpg"alt="Foto de Perfil" class="w-32 h-32 rounded-full border-4 border-cyan-500 object-cover shadow-md" onerror="this.src='https://placehold.co/150x150/f0f0f0/gray?text=S'; this.onerror=null;">
+                    <img src="perfil-sabrina.png" alt="Foto de Perfil" class="w-32 h-32 rounded-full border-4 border-cyan-500 object-cover shadow-md" onerror="this.src='https://placehold.co/150x150/f0f0f0/gray?text=S'; this.onerror=null;">
                     <div class="flex-grow">
                         <h3 id="profile-display-name" class="text-3xl font-bold text-cyan-900">Sabrina Santos</h3>
                         <p id="profile-display-course" class="text-lg text-gray-700">BICT - UFLA</p>
@@ -549,7 +549,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Foto de Perfil</label>
                         <div class="mt-2 flex items-center gap-4">
-                            <img src="perfil-sabrina.jpg" alt="Foto de Perfil" class="w-16 h-16 rounded-full border-2 border-gray-300 object-cover" onerror="this.src='https://placehold.co/150x150/f0f0f0/gray?text=S'; this.onerror=null;">
+                            <img src="perfil-sabrina.png" alt="Foto de Perfil" class="w-16 h-16 rounded-full border-2 border-gray-300 object-cover" onerror="this.src='https://placehold.co/150x150/f0f0f0/gray?text=S'; this.onerror=null;">
                             <input type="file" id="profile-pic-upload" name="profile-pic-upload" class="block w-full text-sm text-gray-500
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-full file:border-0
@@ -1248,7 +1248,7 @@
             if (currentBioElem) {
                 const currentBioText = currentBioElem.innerText;
                 if (currentBioText !== "Edite seu perfil para adicionar uma bio.") {
-                    // Remove as asas do início e do fim
+                    // Remove as aspas do início e do fim
                     document.getElementById('edit-bio').value = currentBioText.substring(1, currentBioText.length - 1);
                 } else {
                     document.getElementById('edit-bio').value = ""; // Deixa o campo vazio
