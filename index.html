@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-Mascara-Dourada.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vai Comigo! - Caronas Universitárias</title>
+    
+    <link rel="icon" type="image/jpeg" href="Gemini_Generated_Image_4gqzrf4gqzrf4gqz.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // Configuração personalizada do Tailwind CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cyan: { 
+                            '50': '#ecfeff',
+                            '100': '#cffafe',
+                            '200': '#a5f3fc',
+                            '300': '#67e8f9',
+                            '400': '#22d3ee',
+                            '500': '#06b6d4',
+                            '600': '#0891b2',
+                            '700': '#0e7490',
+                            '800': '#155e75',
+                            '900': '#164e63',
+                            '950': '#083344',
+                        },
+                        'dark-gray': '#333333', 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS customizado para o sistema de "páginas" */
+        .page-section {
+            display: none;
+        }
+        #page-home {
+            display: block;
+        }
+        /* Estilos base para os links de navegação no header */
+        .nav-link {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            background-color: #f0f9ff; /* MODIFICADO: bg-cyan-50 */
+        }
+        /* Classe especial para o link ativo (página atual) */
+        .nav-link.active-link {
+            background-color: #cffafe; /* MODIFICADO: bg-cyan-100 */
+            font-weight: 700;
+            color: #0e7490; /* MODIFICADO: text-cyan-700 */
+        }
+        
+        /* Estilos para as estrelas de avaliação */
+        .star-rating svg {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .star-rating svg:hover {
+            color: #f59e0b; /* Amarelo (Tailwind 'yellow-500') */
+        }
+        .star-rating svg.filled {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-dark-gray">
+
+<header class="bg-white text-dark-gray shadow-md sticky top-0 z-10">
+        <nav class="container mx-auto max-w-6xl p-4 flex justify-between items-center">
+            
+            <div class="font-bold text-2xl flex items-center space-x-2">
+                
+                <img src="Gemini_Generated_Image_4gqzrf4gqzrf4gqz.png" class="h-8 w-8 object-contain">
+                
+                <a href="#" class="text-cyan-600" onclick="navigateTo('page-home'); return false;">Vai Comigo!</a>
+            </div>
+            <div class="space-x-2">
+                <button onclick="navigateTo('page-home')" class="nav-link active-link">Home</button>
+                <button onclick="navigateTo('page-select')" class="nav-link">Procurar Carona</button>
+                <button onclick="navigateTo('page-offer')" class="nav-link">Oferecer Carona</button>
+                <button onclick="navigateTo('page-profile')" class="nav-link">Perfil</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-8">
+
+        <section id="page-home" class="page-section">
+            <div class="mb-12">
+                <img src="colegas-da-universidade-posando-na-universidade.jpg" class="w-full h-90 object-cover" onerror="this.src='httpshttps://placehold.co/1200x300/06b6d4/white?text=Vai+Comigo!'; this.onerror=null;">
+                
+                <div class="container mx-auto max-w-6xl px-4 pt-4 text-center">
+                    <h2 class="text-4xl font-bold text-dark-gray mb-4">Sua plataforma de caronas universitárias</h2>
+                    <p class="text-lg text-gray-600 mb-6">Sua Carona. Seu caminho</p>
+                    <button onclick="navigateTo('page-select')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition duration-300">
+                        Buscar carona
+                    </button>
+                </div>
+            </div>
+
+            <div class="container mx-auto max-w-6xl px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="mb-6 md:col-span-1">
+                        <label for="university-home" class="block text-xl font-bold text-dark-gray mb-4">Escolha sua Universidade</label>
+                        <div class="relative">
+                            <input type="text" id="university-home" placeholder="UFMG, USP, UFLA..." class="w-full p-3 pl-10 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500 text-base">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M9 2.25h.75V4.5M12 2.25h.75V4.5M15 2.25h.75V4.5" />
+                            </svg>
+                        </div>
+                        <div class="flex space-x-2 mt-3 justify-start">
+                            <img src="brasao (1).jpg" alt="Logo UFMG" class="w-10 h-10 rounded-full border border-gray-200 cursor-pointer" onclick="showUnderConstruction()">
+                            <img src="images (3).png" alt="Logo USP" class="w-10 h-10 rounded-full border border-gray-200 cursor-pointer" onclick="showUnderConstruction()">
+                            <img src="cropped-logo-ufla-1.jpg" alt="Logo UFLA" class="w-10 h-10 rounded-full border border-gray-200 cursor-pointer" onclick="navigateTo('page-select')">
+                        </div>
+                    </div>
+
+                    <div class="mb-8 md:col-span-2">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-dark-gray">Caronas próximas a você</h3>
+                            <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-select'); return false;">Ver todas →</a>
+                        </div>
+                        <div class="space-y-4">
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-not-allowed">
+                                <img src="download (1).jpeg" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                                <div>
+                                    <h4 class="font-bold text-gray-500 line-through">Lavras (Centro) → Biblioteca (UFLA)</h4>
+                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" onclick="navigateTo('page-details-2')">
+                                <img src="centro-lavras.webp" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                                <div>
+                                    <h4 class="font-bold text-cyan-900">Cantina (UFLA) → Centro (Lavras)</h4>
+                                    <p class="text-sm text-gray-600">Hoje, 12:30 • 1 vaga</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-dark-gray">Destinos populares</h3>
+<a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-popular-list'); return false;">Ver todos →</a>                </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 text-center hover:shadow-md transition cursor-pointer" onclick="navigateToSearch('Biblioteca')">
+                        <img src="bibli.jpeg" alt="Imagem da Biblioteca" class="w-full h-24 object-cover rounded mb-2" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Biblioteca (UFLA) '; this.onerror=null;">
+                        <p class="text-sm font-medium text-gray-800">Biblioteca (UFLA)</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 text-center hover:shadow-md transition cursor-pointer" onclick="navigateToSearch('Reitoria UFMG')">
+                        <img src="images (9).jpeg" alt="Imagem da Reitoria" class="w-full h-24 object-cover rounded mb-2" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Reitoria (UFMG)'; this.onerror=null;">
+                        <p class="text-sm font-medium text-gray-800">Reitoria (UFMG) </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 text-center hover:shadow-md transition cursor-pointer" onclick="navigateToSearch('Cantina')">
+                        <img src="centro-de-convivencia-foto-tvu-lavras.jpg" alt="Imagem da Cantina" class="w-full h-24 object-cover rounded mb-2" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Cantina (UFLA)'; this.onerror=null;">
+                        <p class="text-sm font-medium text-gray-800">Cantina (UFLA) </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 text-center hover:shadow-md transition cursor-pointer" onclick="navigateToSearch('Reitoria USP')">
+                        <img src="drone-praca-relogio2510-2.jpg" alt="Imagem do Ginásio" class="w-full h-24 object-cover rounded mb-2" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Gin%C3%A1sio'; this.onerror=null;">
+                        <p class="text-sm font-medium text-gray-800">Reitoria (USP)</p>
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-select" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-8">Caronas encontradas</h2>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+                <div class="relative flex-grow w-full md:w-auto">
+                    <input type="text" id="search-text-input" placeholder="Filtrar por destino (ex: Biblioteca)" class="w-full p-3 pl-10 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500 text-base" onkeyup="applyFilters()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </div>
+                <button id="filter-toggle-button" onclick="toggleFilters()" class="bg-gray-200 text-gray-700 p-3 rounded-lg flex items-center justify-center w-full md:w-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 18H7.5m3-6h9.75m-9.75 0a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 12H7.5" />
+                    </svg>
+                    Filtros
+                </button>
+            </div>
+
+            <div id="filter-options" class="hidden bg-white p-6 rounded-lg shadow-md border border-gray-200 mb-6">
+                <h3 class="text-xl font-semibold text-dark-gray mb-4">Opções de Filtro</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
+                        <input type="date" id="filter-date" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Período</label>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <input id="filter-manha" type="checkbox" class="h-4 w-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500">
+                            <label for="filter-manha" class="text-sm text-gray-600">Manhã (06:00 - 12:00)</label>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input id="filter-tarde" type="checkbox" class="h-4 w-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500">
+                            <label for="filter-tarde" class="text-sm text-gray-600">Tarde (12:00 - 18:00)</label>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input id="filter-noite" type="checkbox" class="h-4 w-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500">
+                            <label for="filter-noite" class="text-sm text-gray-600">Noite (18:00+)</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Vagas</label>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <input id="filter-vagas-1" type="radio" name="filter-vagas" class="h-4 w-4 text-cyan-600 border-gray-300 focus:ring-cyan-500" checked>
+                            <label for="filter-vagas-1" class="text-sm text-gray-600">Qualquer</label>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input id="filter-vagas-2" type="radio" name="filter-vagas" class="h-4 w-4 text-cyan-600 border-gray-300 focus:ring-cyan-500">
+                            <label for="filter-vagas-2" class="text-sm text-gray-600">1+ vagas</label>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input id="filter-vagas-3" type="radio" name="filter-vagas" class="h-4 w-4 text-cyan-600 border-gray-300 focus:ring-cyan-500">
+                            <label for="filter-vagas-3" class="text-sm text-gray-600">2+ vagas</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right mt-6 space-x-2">
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition duration-300" onclick="toggleFilters()">
+                        Fechar
+                    </button>
+                    <button class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300" onclick="applyFiltersAndClose()">
+                        Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+
+            <div id="ride-list-container" class="space-y-4">
+                </div>
+
+        </section>
+
+        <section id="page-details" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-6">Detalhes da Carona</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        
+                        <a href="https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/@-21.2314803,-45.0123413,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!2m2!1d-45.0011657!2d-21.240885!1m5!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!2m2!1d-44.9768448!2d-21.2276878!3e0?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="group block relative">
+                            <img src="Captura de tela 2025-11-08 173547.png" alt="Mapa da carona" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity" onerror="this.src='https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO+1'; this.onerror=null;">
+                            
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300 rounded-lg mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <div class="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
+                            <div class="flex items-center mb-2">
+                                <img src="pexels-photo-733872.webp" alt="Avatar Motorista" class="w-12 h-12 rounded-full mr-3 border border-gray-200 object-cover" onerror="this.src='https://placehold.co/50x50/f0f0f0/gray?text=AP'; this.onerror=null;">
+                                <div>
+                                    <h3 class="font-bold text-xl text-cyan-900">Ana Paula</h3>
+                                    <p class="text-gray-700 text-sm">Avaliação: <span class="font-bold text-yellow-500">4.9</span> (18 caronas)</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">"Gosto de ouvir música pop no caminho. Carro limpo e com ar-condicionado."</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="space-y-4 mb-8">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
+                                    Local de Saída:
+                                </h4>
+                                <p class="pl-7 text-gray-800">Centro Lavras</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
+                                    Destino:
+                                </h4>
+                                <p class="pl-7 text-gray-800">Biblioteca (UFLA)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /> </svg>
+                                    Horário:
+                                </h4>
+                                <p class="pl-7 font-bold text-cyan-700 text-lg">Hoje, 17:30</p>
+                            </div>
+                        </div>
+
+                        <div id="details-actions-confirm" class="mt-10 space-y-3">
+                            <button onclick="navigateTo('page-confirm')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg transition duration-300">
+                                Confirmar Carona
+                            </button>
+                            <button onclick="navigateTo('page-select')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Cancelar e Voltar
+                            </button>
+                        </div>
+
+                        <div id="details-actions-confirmed" class="mt-10 space-y-3" style="display: none;">
+                            <button class="w-full bg-green-500 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg cursor-not-allowed flex items-center justify-center" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Carona Agendada
+                            </button>
+                            <button onclick="navigateTo('page-home')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Voltar para Home
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-details-2" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-6">Detalhes da Carona</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        
+                        <a href="google.com/maps?sca_esv=7d961831fd6b6efa&output=search&q=CANTINA+UFLA+ATÉ+CENTRO+LAVRAS&source=lnms&fbs=AIIjpHydJdUtNKrM02hj0s4nbm4yS-nYjdQche_l-llub_1h_O2xWOr6YDbaS9P92-AsMkqLZj0r5GtN79pq4orJYn9CowIE6jZcW7BAYbTdJQFh3iNvEgnNRiebHbfhDO_ljH9qLVvS5rp3XTNTFVL1TG8ekGeM5J-Zy3Sos3VkZLoOpICIlqm8KkOlKVuGbQIVSULygAZyw6Qrvlq1fU_JvFglBPiwyA&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener noreferrer" class="group block relative">
+                            <img src="Captura de tela 2025-11-08 180203.png" alt="Mapa da carona 2" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity" onerror="this.src='https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO+2'; this.onerror=null;">
+                            
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300 rounded-lg mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <div class="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
+                            <div class="flex items-center mb-2">
+                                <img src="images (10).jpeg" alt="Avatar Motorista" class="w-12 h-12 rounded-full mr-3 border border-gray-200 object-cover" onerror="this.src='https://placehold.co/50x50/f0f0f0/gray?text=CM'; this.onerror=null;">
+                                <div>
+                                    <h3 class="font-bold text-xl text-cyan-900">Carlos M.</h3>
+                                    <p class="text-gray-700 text-sm">Avaliação: <span class="font-bold text-yellow-500">4.7</span> (5 caronas)</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">"Gosto de fazer o trajeto em silêncio."</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="space-y-4 mb-8">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
+                                    Local de Saída:
+                                </h4>
+                                <p class="pl-7 text-gray-800">Cantina (UFLA)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
+                                    Destino:
+                                </h4>
+                                <p class="pl-7 text-gray-800">Centro (Lavras)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /> </svg>
+                                    Horário:
+                                </h4>
+                                <p class="pl-7 font-bold text-cyan-700 text-lg">Amanhã, 12:30</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 space-y-3">
+                            <button onclick="navigateTo('page-confirm')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg transition duration-300">
+                                Confirmar Carona
+                            </button>
+                            <button onclick="navigateTo('page-select')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Cancelar e Voltar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-confirm" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <div class="text-center py-16 bg-white p-10 rounded-lg shadow-lg">
+                <svg class="w-24 h-24 text-green-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Carona confirmada com sucesso!</h2>
+                
+                <p class="text-lg text-gray-600 mb-10">
+                    Você será notificado sobre os detalhes da carona.
+                </p>
+                
+                <button onclick="navigateTo('page-home')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition duration-300">
+                    Voltar para o Início
+                </button>
+            </div>
+        </section>
+
+        <section id="page-offer" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-8">Oferecer Carona</h2>
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
+                <form action="#" method="POST" onsubmit="event.preventDefault();"> <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="offer-university" class="block text-sm font-medium text-gray-700 mb-1">Sua Universidade</label>
+                            <select id="offer-university" name="offer-university" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                                <option>Universidade Federal de Lavras (UFLA)</option>
+                                <option>Universidade Federal de Minas Gerais (UFMG)</option>
+                                <option>Universidade de São Paulo (USP)</option>
+                                <option>Pontifícia Universidade Católica (PUC-Minas)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="offer-seats" class="block text-sm font-medium text-gray-700 mb-1">Vagas Disponíveis</label>
+                            <select id="offer-seats" name="offer-seats" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                                <option value="1">1 vaga</option>
+                                <option value="2" selected>2 vagas</option>
+                                <option value="3">3 vagas</option>
+                                <option value="4">4 vagas</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="offer-from" class="block text-sm font-medium text-gray-700 mb-1">Local de Saída</label>
+                            <input type="text" id="offer-from" name="offer-from" placeholder="Ex: Portaria Principal da UFLA" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="offer-to" class="block text-sm font-medium text-gray-700 mb-1">Destino</label>
+                            <input type="text" id="offer-to" name="offer-to" placeholder="Ex: Centro da cidade, Bairro Castelo" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label for="offer-date" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
+                            <input type="date" id="offer-date" name="offer-date" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                        </div>
+                        <div>
+                            <label for="offer-time" class="block text-sm font-medium text-gray-700 mb-1">Horário de Saída</label>
+                            <input type="time" id="offer-time" name="offer-time" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="offer-info" class="block text-sm font-medium text-gray-700 mb-1">Informações Adicionais (Opcional)</label>
+                            <textarea id="offer-info" name="offer-info" rows="3" placeholder="Ex: Aceito mochilas, carro com ar-condicionado, música..." class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500"></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-right">
+                        <button type="button" onclick="submitNewRide()" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition duration-300">
+                            Publicar Carona
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="page-profile" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-8">Meu Perfil</h2>
+            
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
+                <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 mb-8">
+                    <img src="Imagem do WhatsApp de 2025-11-08 à(s) 03.13.29_5ac1a605.jpg"alt="Foto de Perfil" class="w-32 h-32 rounded-full border-4 border-cyan-500 object-cover shadow-md" onerror="this.src='https://placehold.co/150x150/f0f0f0/gray?text=S'; this.onerror=null;">
+                    <div class="flex-grow">
+                        <h3 id="profile-display-name" class="text-3xl font-bold text-cyan-900">Sabrina Santos</h3>
+                        <p id="profile-display-course" class="text-lg text-gray-700">BICT - UFLA</p>
+                        
+                        <p id="profile-display-bio" class="text-gray-500 mt-2 text-sm italic">Edite seu perfil para adicionar uma bio.</p>
+                        
+                        <p class="text-gray-600 mt-2">Avaliação Média: <span class="font-bold text-yellow-500">4.8 / 5.0</span> (12 viagens)</p>
+                        
+                        <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                            <button onclick="navigateTo('page-edit-profile')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition duration-300 w-full sm:w-auto">
+                                Editar Perfil
+                            </button>
+                            <button onclick="navigateTo('page-history')" class="bg-cyan-50 hover:bg-cyan-100 text-cyan-800 font-bold py-2 px-6 rounded-lg transition duration-300 border border-cyan-200 w-full sm:w-auto">
+                                Minhas Caronas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-dark-gray mb-4 border-t pt-6">Minhas Avaliações Recentes</h3>
+                    
+                    <div class="space-y-4">
+
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2">Como Passageiro</h4>
+                            <div class="space-y-3 pl-4 border-l-2 border-gray-100">
+                                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                    <p class="text-sm text-gray-700">"Ótima passageira, muito simpática!" <span class="font-medium text-yellow-500">- 5/5</span></p>
+                                    <p class="text-xs text-gray-500">De: Jenaina Ribeiro. (Ontem)</p>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                    <p class="text-sm text-gray-700">"Passageira educada, mas fala demais." <span class="font-medium text-yellow-500">- 4/5</span></p>
+                                    <p class="text-xs text-gray-500">De: Gabriel Fonseca. (Dois dias atrás)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2 mt-6">Como Motorista</h4>
+                            <div class="pl-4 border-l-2 border-gray-100">
+                                <p class="text-sm text-gray-500 italic">Nenhuma avaliação recebida como motorista ainda.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="page-edit-profile" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-8">Editar Perfil</h2>
+            
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200 max-w-2xl mx-auto">
+                <form action="#" method="POST" onsubmit="event.preventDefault();"> <div class="space-y-6">
+                        
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Foto de Perfil</label>
+                        <div class="mt-2 flex items-center gap-4">
+                            <img src="Imagem do WhatsApp de 2025-11-08 à(s) 03.13.29_5ac1a605.jpg" alt="Foto de Perfil" class="w-16 h-16 rounded-full border-2 border-gray-300 object-cover" onerror="this.src='https://placehold.co/150x150/f0f0f0/gray?text=S'; this.onerror=null;">
+                            <input type="file" id="profile-pic-upload" name="profile-pic-upload" class="block w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-cyan-50 file:text-cyan-700
+                                hover:file:bg-cyan-100 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="edit-name" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                        <input type="text" id="edit-name" name="edit-name" value="Sabrina Santos" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                    </div>
+
+                    <div>
+                        <label for="edit-course" class="block text-sm font-medium text-gray-700 mb-1">Curso e Universidade</label>
+                        <input type="text" id="edit-course" name="edit-course" value="BICT - UFLA" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500">
+                    </div>
+                    
+                    <div>
+                        <label for="edit-bio" class="block text-sm font-medium text-gray-700 mb-1">Sua "Bio" (Opcional)</label>
+                        <textarea id="edit-bio" name="edit-bio" rows="3" placeholder="Ex: Gosto de ouvir música, carro limpo..." class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500"></textarea>
+                    </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end gap-3">
+                        <button type="button" onclick="navigateTo('page-profile')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition duration-300">
+                            Cancelar
+                        </button>
+                        <button type="button" onclick="saveProfileChanges()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300">
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="page-history" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-8 gap-4">
+                <h2 class="text-3xl font-bold text-dark-gray">Histórico de Caronas</h2>
+                <button onclick="navigateTo('page-profile')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-5 rounded-lg transition duration-300 w-full sm:w-auto">
+                    ← Voltar ao Perfil
+                </button>
+            </div>
+            
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 mb-6">
+                    <button id="filter-btn-todas" onclick="filterHistory('todas')" class="flex-1 bg-cyan-600 text-white font-semibold py-2 px-4 rounded-lg text-sm">Todas</button>
+                    <button id="filter-btn-passageiro" onclick="filterHistory('passageiro')" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg text-sm">Como Passageiro</button>
+                    <button id="filter-btn-motorista" onclick="filterHistory('motorista')" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg text-sm">Caronas Oferecidas</button>
+                </div>
+
+                <div>
+                    <div id="history-section-passageiro">
+                        <h4 class="text-lg font-semibold text-dark-gray mb-3 mt-4 border-b pb-2">
+                            Como Passageiro
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">UFLA → Centro (Lavras) | Carona com Angela Barrera</h4>
+                                    <p class="text-sm text-gray-600">Hoje, 14:00</p>
+                                </div>
+                                <button onclick="navigateTo('page-evaluate')" class="text-sm font-medium text-yellow-800 bg-yellow-200 hover:bg-yellow-300 px-3 py-1 rounded-full transition-colors">
+                                    Avaliar
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">UFLA → Centro (Lavras) | Carona com Jenaina Ribeiro</h4>
+                                    <p class="text-sm text-gray-600">Ontem, 18:00</p>
+                                </div>
+                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Centro → Cantina - UFLA (Lavras) | Carona com Gabriel Fonseca</h4>
+                                    <p class="text-sm text-gray-600">Dois dias atrás, 07:15</p>
+                                </div>
+                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Centro → Saúde Fit (Lavras) | Carona com João Carlos</h4>
+                                    <p class="text-sm text-gray-600">Semana passada, 13:00</p>
+                                </div>
+                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">UFLA → Rodoviária (Belo Horizonte) | Carona com Wanessa</h4>
+                                    <p class="text-sm text-gray-600">Mês passado</p>
+                                </div>
+                                <span class="text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">Cancelada</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">UFLA → Centro (Lavras) | Carona com Karen Luz</h4>
+                                    <p class="text-sm text-gray-600">Três dias atrás, 12:00</p>
+                                </div>
+                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Biblioteca (UFLA) → Tabacaria (Lavras) | Carona com João Miguel</h4>
+                                    <p class="text-sm text-gray-600">Semana passada, 17:30</p>
+                                </div>
+                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="history-section-motorista">
+                        <h4 class="text-lg font-semibold text-dark-gray mb-3 mt-8 border-b pb-2">
+                            Caronas Oferecidas
+                        </h4>
+                        <div class="space-y-4">
+                            <p class="text-sm text-gray-500 italic">Nenhuma carona oferecida no histórico.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="page-evaluate" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-8 gap-4">
+                <h2 class="text-3xl font-bold text-dark-gray">Avaliar sua Viagem</h2>
+                <button onclick="navigateTo('page-history')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-5 rounded-lg transition duration-300 w-full sm:w-auto">
+                    ← Voltar ao Histórico
+                </button>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200 max-w-2xl mx-auto">
+                
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <p class="text-sm text-gray-600">Você está avaliando sua carona:</p>
+                    <h3 class="text-xl font-bold text-cyan-800">UFLA → Centro</h3>
+                    <p class="text-sm text-gray-700">Com o(a) motorista <span class="font-semibold">Angela Barrera</span></p>
+                </div>
+
+                <form action="#" onsubmit="return false;">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-lg font-semibold text-gray-700 mb-2">Sua nota:</label>
+                            <div class="flex items-center space-x-1 star-rating text-gray-300 text-4xl" id="star-container">
+                                <svg onclick="handleStarRating(1)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg onclick="handleStarRating(2)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg onclick="handleStarRating(3)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg onclick="handleStarRating(4)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg onclick="handleStarRating(5)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            </div>
+                            <input type="hidden" id="rating-value" name="rating" value="0">
+                        </div>
+                        
+                        <div>
+                            <label for="evaluate-comment" class="block text-lg font-semibold text-gray-700 mb-2">Seu comentário (opcional):</label>
+                            <textarea id="evaluate-comment" name="comment" rows="4" placeholder="Descreva sua experiência..." class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-200 text-right">
+                        <button type="button" onclick="submitEvaluation()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition duration-300">
+                            Enviar Avaliação
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+<section id="page-no-rides" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <div class="text-center py-16 bg-white p-10 rounded-lg shadow-lg max-w-2xl mx-auto">
+                <svg class="w-20 h-20 text-cyan-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nenhuma carona disponível</h2>
+                <p class="text-lg text-gray-600 mb-10">
+                    Não há caronas agendadas para este destino no momento.
+                </p>
+                <button onclick="navigateTo('page-home')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition duration-300">
+                    Voltar para o Início
+                </button>
+            </div>
+        </section>
+<section id="page-popular-list" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-8 gap-4">
+                <h2 class="text-3xl font-bold text-dark-gray">Destinos Populares</h2>
+                <button onclick="navigateTo('page-home')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-5 rounded-lg transition duration-300 w-full sm:w-auto">
+                    ← Voltar ao Início
+                </button>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
+                <div class="space-y-4">
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" onclick="navigateToSearch('Biblioteca')">
+                        <img src="bibli.jpeg" alt="Imagem da Biblioteca" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Biblioteca (UFLA) '; this.onerror=null;">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-lg text-cyan-800">Biblioteca (UFLA)</h4>
+                            <p class="text-sm text-gray-600">Ver caronas para este destino</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-600 hover:text-cyan-700">Verificar →</span>
+                        </div>
+                    </div>
+        
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" onclick="navigateToSearch('Reitoria UFMG')">
+                        <img src="images (9).jpeg" alt="Imagem da Reitoria" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Reitoria (UFMG)'; this.onerror=null;">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-lg text-cyan-800">Reitoria (UFMG)</h4>
+                            <p class="text-sm text-gray-600">Ver caronas para este destino</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-600 hover:text-cyan-700">Verificar →</span>
+                        </div>
+                    </div>
+        
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" onclick="navigateToSearch('Cantina')">
+                        <img src="centro-de-convivencia-foto-tvu-lavras.jpg" alt="Imagem da Cantina" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Cantina (UFLA)'; this.onerror=null;">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-lg text-cyan-800">Cantina (UFLA)</h4>
+                            <p class="text-sm text-gray-600">Ver caronas para este destino</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-600 hover:text-cyan-700">Verificar →</span>
+                        </div>
+                    </div>
+        
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" onclick="navigateToSearch('Reitoria USP')">
+                        <img src="drone-praca-relogio2510-2.jpg" alt="Imagem do Ginásio" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/d4faff/0891b2?text=Gin%C3%A1sio'; this.onerror=null;">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-lg text-cyan-800">Reitoria (USP)</h4>
+                            <p class="text-sm text-gray-600">Ver caronas para este destino</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-600 hover:text-cyan-700">Verificar →</span>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    
+    <div id="agendadas-bottom-bar" class="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg border-t border-gray-200 z-20 hidden md:block">
+        <div class="container mx-auto max-w-6xl flex justify-between items-center">
+            <h3 class="text-lg font-bold text-dark-gray">Caronas agendadas:</h3>
+            
+            <div class="flex-grow flex justify-center">
+                <div class="flex items-center space-x-2 bg-cyan-50 p-2 rounded-lg border border-cyan-200 cursor-pointer hover:bg-cyan-100" onclick="navigateTo('page-details', 'confirmed')">
+                    <img src="pexels-photo-733872.webp" alt="Motorista" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://placehold.co/30x30/a5f3fc/0891b2?text=AN'; this.onerror=null;">
+                    <p class="text-sm text-gray-700">Centro → Biblioteca (UFLA) com <span class="font-semibold">Ana Paula</span></p>
+                    <span class="text-sm font-bold text-cyan-700">Hoje, 17:30</span>
+                </div>
+            </div>
+            
+            <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-history'); return false;">Ver histórico →</a>
+        </div>
+    </div>
+
+
+    <footer class="bg-gray-800 text-gray-300 text-center p-8 mt-12">
+        <p class="mb-2">© 2025 Vai Comigo! - Caronas Universitárias.</p>
+    </footer>
+
+    <script>
+        /**
+         * [MODIFICADO]
+         * BANCO DE DADOS EM JAVASCRIPT COM localStorage
+         */
+        
+        // 1. Define os dados padrão
+        let rideData = [
+            {
+                id: 'page-details',
+                title: 'Centro (Lavras) → Biblioteca (UFLA)',
+                description: 'Saída: Centro - Chegada: Campus',
+                date: '2025-11-09',
+                time: '17:30',
+                seats: 0,
+                status: 'booked',
+                image: 'download (1).jpeg',
+                driver: 'Ana Paula'
+            },
+            {
+                id: 'page-details-2',
+                title: 'Cantina (UFLA) → Centro (Lavras)',
+                description: 'Saída: Campus - Chegada: Centro',
+                date: '2025-11-10',
+                time: '12:30',
+                seats: 1,
+                status: 'available',
+                image: 'centro-lavras.webp',
+                driver: 'Carlos M.'
+            },
+            {
+                id: 'page-details',
+                title: 'Portaria (UFLA) → Rodoviária (Lavras)',
+                description: 'Saída: Campus - Chegada: Rodoviária',
+                date: '2025-11-10',
+                time: '08:00',
+                seats: 3,
+                status: 'available',
+                image: 'https://placehold.co/120x80/cffafe/0891b2?text=Sem foto',
+                driver: 'Mariana L.'
+            },
+            {
+                id: 'page-details-2',
+                title: 'Centro (Lavras) → Cantina (UFLA)',
+                description: 'Saída: Centro - Chegada: Campus',
+                date: '2025-11-11',
+                time: '18:15',
+                seats: 2,
+                status: 'available',
+                image: 'https://placehold.co/120x80/a5f3fc/0891b2?text=Sem foto',
+                driver: 'Lucas F.'
+            }
+        ];
+
+        // 2. Tenta carregar os dados salvos do localStorage
+        const savedRides = localStorage.getItem('vaicomigo_rideData');
+        if (savedRides) {
+            rideData = JSON.parse(savedRides); // Sobrescreve o padrão se houver dados salvos
+        }
+
+        // --- FUNÇÕES DE NAVEGAÇÃO E LÓGICA ---
+        
+        /**
+         * [MODIFICADO]
+         * Pega os dados do formulário, cria uma nova carona E SALVA NO LOCALSTORAGE.
+         */
+        function submitNewRide() {
+            const from = document.getElementById('offer-from').value;
+            const to = document.getElementById('offer-to').value;
+            const date = document.getElementById('offer-date').value;
+            const time = document.getElementById('offer-time').value;
+            const seats = parseInt(document.getElementById('offer-seats').value);
+            const info = document.getElementById('offer-info').value;
+
+            if (!from || !to || !date || !time) {
+                alert('Por favor, preencha todos os campos obrigatórios (Saída, Destino, Data, Horário).');
+                return;
+            }
+
+            const newRide = {
+                id: 'page-details-2',
+                title: `${from} → ${to}`,
+                description: `Saída: ${from} - Chegada: ${to}` + (info ? ` (${info})` : ''),
+                date: date,
+                time: time,
+                seats: seats,
+                status: 'available',
+                image: 'https://placehold.co/120x80/cffafe/0891b2?text=NOVA',
+                driver: 'Sabrina Santos (Você)'
+            };
+            
+            rideData.unshift(newRide);
+
+            // [NOVO] Salva o array de caronas atualizado no localStorage
+            localStorage.setItem('vaicomigo_rideData', JSON.stringify(rideData));
+
+            document.getElementById('offer-from').value = '';
+            document.getElementById('offer-to').value = '';
+            document.getElementById('offer-date').value = '';
+            document.getElementById('offer-time').value = '';
+            document.getElementById('offer-info').value = '';
+            document.getElementById('offer-seats').value = '2';
+
+            alert('Carona publicada com sucesso!');
+            navigateTo('page-select');
+        }
+
+        function renderRides(ridesToRender) {
+            const container = document.getElementById('ride-list-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            if (ridesToRender.length === 0) {
+                container.innerHTML = `<p class="text-gray-600 text-center p-4 bg-white rounded-lg shadow-sm">Nenhuma carona encontrada com esses filtros.</p>`;
+                return;
+            }
+
+            ridesToRender.forEach(ride => {
+                let html = '';
+                const dateText = getRelativeDate(ride.date); 
+                const vagasText = ride.seats > 0 ? `${ride.seats} vaga${ride.seats > 1 ? 's' : ''}` : 'Lotado';
+                const vagasClass = ride.seats > 0 ? 'text-orange-600' : 'text-red-600';
+
+                if (ride.status === 'booked' || ride.seats === 0) {
+                    html = `
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 opacity-70 cursor-not-allowed">
+                        <img src="${ride.image}" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-lg text-gray-500 line-through">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${ride.description}</p>
+                        </div>
+                        <div class="text-sm text-gray-600 text-right">
+                            <p>${dateText}, ${ride.time}</p>
+                            <p class="font-bold text-green-600">CARONA JÁ AGENDADA</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-400">Indisponível</span>
+                        </div>
+                    </div>`;
+                } else {
+                     html = `
+                    <div class="bg-cyan-50 p-4 rounded-lg border border-cyan-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" onclick="navigateTo('${ride.id}')">
+                        <img src="${ride.image}" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/cffafe/0891b2?text=MAP'; this.onerror=null;">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-lg text-cyan-800">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${ride.description}</p>
+                        </div>
+                        <div class="text-sm text-gray-600 text-right">
+                            <p>${dateText}, ${ride.time}</p>
+                            <p class="font-medium ${vagasClass}">${vagasText}</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-600 hover:text-cyan-700">Ver Detalhes →</span>
+                        </div>
+                    </div>`;
+                }
+                container.innerHTML += html;
+            });
+        }
+        
+        function getRelativeDate(dateString) {
+            const today = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+
+            const [year, month, day] = dateString.split('-').map(Number);
+            const rideDate = new Date(year, month - 1, day); 
+
+            today.setHours(0, 0, 0, 0);
+            tomorrow.setHours(0, 0, 0, 0);
+            rideDate.setHours(0, 0, 0, 0);
+
+            if (rideDate.getTime() === today.getTime()) return 'Hoje';
+            if (rideDate.getTime() === tomorrow.getTime()) return 'Amanhã';
+            
+            return rideDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+        }
+
+        function applyFilters() {
+            const searchText = document.getElementById('search-text-input').value.toLowerCase();
+            const filterDate = document.getElementById('filter-date').value;
+            
+            const periodMorning = document.getElementById('filter-manha').checked;
+            const periodAfternoon = document.getElementById('filter-tarde').checked;
+            const periodNight = document.getElementById('filter-noite').checked;
+            
+            let minSeats = 0;
+            if (document.getElementById('filter-vagas-2').checked) minSeats = 1;
+            if (document.getElementById('filter-vagas-3').checked) minSeats = 2;
+
+            let filteredRides = rideData.filter(ride => {
+                
+                if (searchText && 
+                    !ride.title.toLowerCase().includes(searchText) && 
+                    !ride.description.toLowerCase().includes(searchText)) {
+                    return false;
+                }
+
+                if (filterDate && ride.date !== filterDate) {
+                    return false;
+                }
+
+                const effectiveSeats = ride.status === 'booked' ? 0 : ride.seats;
+                if (effectiveSeats < minSeats) {
+                    return false;
+                }
+                
+                if (periodMorning || periodAfternoon || periodNight) {
+                    const rideHour = parseInt(ride.time.split(':')[0]);
+                    let matchesPeriod = false;
+                    
+                    if (periodMorning && rideHour >= 6 && rideHour < 12) matchesPeriod = true;
+                    if (periodAfternoon && rideHour >= 12 && rideHour < 18) matchesPeriod = true;
+                    if (periodNight && rideHour >= 18) matchesPeriod = true;
+                    
+                    if (!matchesPeriod) return false;
+                }
+
+                return true;
+            });
+
+            renderRides(filteredRides);
+        }
+
+        function applyFiltersAndClose() {
+            applyFilters();
+            toggleFilters();
+        }
+
+        function navigateToSearch(searchTerm) {
+            const searchInput = document.getElementById('search-text-input');
+            if (searchInput) {
+                searchInput.value = searchTerm;
+            }
+            navigateTo('page-select');
+        }
+
+        /**
+         * [NOVA FUNÇÃO]
+         * Carrega os dados do perfil salvos no localStorage.
+         * Chamada quando a página é carregada pela primeira vez.
+         */
+        function loadProfileDataFromStorage() {
+            const savedName = localStorage.getItem('vaicomigo_profileName');
+            const savedCourse = localStorage.getItem('vaicomigo_profileCourse');
+            const savedBio = localStorage.getItem('vaicomigo_profileBio');
+
+            if (savedName) {
+                document.getElementById('profile-display-name').innerText = savedName;
+            }
+            if (savedCourse) {
+                document.getElementById('profile-display-course').innerText = savedCourse;
+            }
+            if (savedBio && savedBio.trim() !== "") {
+                const displayBio = document.getElementById('profile-display-bio');
+                displayBio.innerText = `"${savedBio}"`;
+                displayBio.classList.remove('italic', 'text-gray-500'); 
+                displayBio.classList.add('text-gray-700');
+            }
+        }
+
+
+        /**
+         * [MODIFICADO]
+         * Salva as alterações do formulário de perfil E SALVA NO LOCALSTORAGE.
+         */
+        function saveProfileChanges() {
+            // 1. Obter valores do formulário de edição
+            const newName = document.getElementById('edit-name').value;
+            const newCourse = document.getElementById('edit-course').value;
+            const newBio = document.getElementById('edit-bio').value; 
+
+            // 2. Validar
+            if (!newName || !newCourse) {
+                alert('Nome e Curso não podem ficar em branco.');
+                return;
+            }
+
+            // 3. Atualizar os elementos na página de perfil
+            const displayName = document.getElementById('profile-display-name');
+            const displayCourse = document.getElementById('profile-display-course');
+            const displayBio = document.getElementById('profile-display-bio');
+
+            displayName.innerText = newName;
+            displayCourse.innerText = newCourse;
+            
+            if (newBio && newBio.trim() !== "") {
+                displayBio.innerText = `"${newBio}"`;
+                displayBio.classList.remove('italic', 'text-gray-500'); 
+                displayBio.classList.add('text-gray-700');
+            } else {
+                displayBio.innerText = "Edite seu perfil para adicionar uma bio.";
+                displayBio.classList.add('italic', 'text-gray-500');
+                displayBio.classList.remove('text-gray-700');
+            }
+            
+            // [NOVO] 4. Salvar os novos dados no localStorage
+            localStorage.setItem('vaicomigo_profileName', newName);
+            localStorage.setItem('vaicomigo_profileCourse', newCourse);
+            localStorage.setItem('vaicomigo_profileBio', newBio);
+
+            // 5. Dar feedback e navegar de volta
+            alert('Perfil atualizado com sucesso!');
+            navigateTo('page-profile');
+        }
+
+        function showPage(pageId, context) {
+            document.querySelectorAll('.page-section').forEach(function(section) {
+                section.style.display = 'none';
+            });
+            
+            const pageToShow = document.getElementById(pageId);
+            if (pageToShow) {
+                pageToShow.style.display = 'block';
+            } else {
+                document.getElementById('page-home').style.display = 'block';
+                pageId = 'page-home';
+            }
+
+            if (pageId === 'page-select') {
+                applyFilters();
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-link');
+            });
+
+            let activeBtn;
+            switch(pageId) {
+                case 'page-home':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
+                    break;
+                case 'page-select':
+                case 'page-details':
+                case 'page-details-2':
+                case 'page-confirm':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-select\')"]');
+                    break;
+                case 'page-offer':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-offer\')"]');
+                    break;
+                case 'page-profile':
+                case 'page-edit-profile': 
+                case 'page-history':
+                case 'page-evaluate':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-profile\')"]');
+                    break;
+                default:
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
+            }
+            if (activeBtn) {
+                activeBtn.classList.add('active-link');
+            }
+
+            if (pageId === 'page-details') {
+                const actionsConfirm = document.getElementById('details-actions-confirm');
+                const actionsConfirmed = document.getElementById('details-actions-confirmed');
+                
+                if (context === 'confirmed') {
+                    actionsConfirm.style.display = 'none';
+                    actionsConfirmed.style.display = 'block';
+                } else {
+                    actionsConfirm.style.display = 'block';
+                    actionsConfirmed.style.display = 'none';
+                }
+            }
+            
+            const agendadasBar = document.getElementById('agendadas-bottom-bar');
+            if (pageId === 'page-home' || pageId === 'page-select') {
+                agendadasBar.classList.remove('hidden');
+            } else {
+                agendadasBar.classList.add('hidden');
+            }
+
+            if (pageId === 'page-history') {
+                filterHistory('todas');
+            }
+
+            if (pageId === 'page-evaluate') {
+                handleStarRating(0);
+            }
+        }
+
+        function navigateTo(pageId, context = null) {
+            window.scrollTo(0, 0);
+            const state = { page: pageId, context: context };
+            history.pushState(state, '', '#' + pageId);
+            showPage(pageId, context);
+        }
+
+        window.onpopstate = function(event) {
+            if (event.state) {
+                showPage(event.state.page, event.state.context);
+            } else {
+                showPage('page-home');
+            }
+        };
+
+        /**
+         * [MODIFICADO]
+         * Lida com o carregamento inicial da página.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // [NOVO] Carrega dados do perfil (nome, curso, bio) do localStorage
+            loadProfileDataFromStorage(); 
+
+            let initialPage = 'page-home';
+            let initialContext = null;
+
+            if (location.hash) {
+                const hashPage = location.hash.substring(1);
+                if (document.getElementById(hashPage)) {
+                    initialPage = hashPage;
+                }
+            }
+
+            // [MODIFICADO] Pré-popula o formulário de edição com os dados JÁ ATUALIZADOS do perfil
+            const currentName = document.getElementById('profile-display-name').innerText;
+            const currentCourse = document.getElementById('profile-display-course').innerText;
+            const currentBioElem = document.getElementById('profile-display-bio');
+            
+            document.getElementById('edit-name').value = currentName;
+            document.getElementById('edit-course').value = currentCourse;
+
+            // Pré-popula a bio, removendo as aspas e o placeholder
+            if (currentBioElem) {
+                const currentBioText = currentBioElem.innerText;
+                if (currentBioText !== "Edite seu perfil para adicionar uma bio.") {
+                    // Remove as aspas do início e do fim
+                    document.getElementById('edit-bio').value = currentBioText.substring(1, currentBioText.length - 1);
+                } else {
+                    document.getElementById('edit-bio').value = ""; // Deixa o campo vazio
+                }
+            }
+
+            showPage(initialPage, initialContext);
+            history.replaceState({ page: initialPage, context: initialContext }, '', '#' + initialPage);
+        });
+
+        
+        // --- DEMAIS FUNÇÕES (SEM MUDANÇAS DE LÓGICA) ---
+
+        function showUnderConstruction() {
+            alert('Em breve!\n\nEsta funcionalidade para outras universidades ainda está em construção. Por enquanto, a plataforma está focada na UFLA.');
+        }
+
+        function toggleFilters() {
+            const filterOptions = document.getElementById('filter-options');
+            const filterButton = document.getElementById('filter-toggle-button');
+            
+            if (filterOptions.classList.contains('hidden')) {
+                filterOptions.classList.remove('hidden');
+                filterButton.classList.remove('bg-gray-200', 'text-gray-700');
+                filterButton.classList.add('bg-cyan-100', 'text-cyan-800', 'ring-2', 'ring-cyan-300');
+            } else {
+                filterOptions.classList.add('hidden');
+                filterButton.classList.remove('bg-cyan-100', 'text-cyan-800', 'ring-2', 'ring-cyan-300');
+                filterButton.classList.add('bg-gray-200', 'text-gray-700');
+            }
+        }
+
+        function filterHistory(filterType) {
+            const btnTodas = document.getElementById('filter-btn-todas');
+            const btnPassageiro = document.getElementById('filter-btn-passageiro');
+            const btnMotorista = document.getElementById('filter-btn-motorista');
+            
+            const secPassageiro = document.getElementById('history-section-passageiro');
+            const secMotorista = document.getElementById('history-section-motorista');
+
+            const allButtons = [btnTodas, btnPassageiro, btnMotorista];
+            allButtons.forEach(btn => {
+                btn.classList.remove('bg-cyan-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+            });
+
+            switch(filterType) {
+                case 'todas':
+                    btnTodas.classList.add('bg-cyan-600', 'text-white');
+                    btnTodas.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+                    secPassageiro.style.display = 'block';
+                    secMotorista.style.display = 'block';
+                    break;
+                case 'passageiro':
+                    btnPassageiro.classList.add('bg-cyan-600', 'text-white');
+                    btnPassageiro.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+                    secPassageiro.style.display = 'block';
+                    secMotorista.style.display = 'none';
+                    break;
+                case 'motorista':
+                    btnMotorista.classList.add('bg-cyan-600', 'text-white');
+                    btnMotorista.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+                    secPassageiro.style.display = 'none';
+                    secMotorista.style.display = 'block';
+                    break;
+            }
+        }
+
+        function handleStarRating(rating) {
+            const stars = document.querySelectorAll('#star-container .star-icon');
+            document.getElementById('rating-value').value = rating;
+
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        }
+
+        function submitEvaluation() {
+            const rating = document.getElementById('rating-value').value;
+            const comment = document.getElementById('evaluate-comment').value;
+            
+            if (rating === '0') {
+                alert('Por favor, selecione pelo menos uma estrela para avaliar.');
+                return;
+            }
+
+            console.log('Avaliação Enviada:', { nota: rating, comentario: comment });
+            alert('Avaliação enviada com sucesso! Obrigado.');
+
+            navigateTo('page-history');
+        }
+    </script>
+
+</body>
+</html>
