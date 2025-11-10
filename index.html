@@ -107,7 +107,7 @@
 
         <section id="page-home" class="page-section">
             <div class="mb-12">
-                <img src="colegas-da-universidade-posando-na-universidade.jpg" class="w-full h-90 object-cover" onerror="this.src='httpshttps://placehold.co/1200x300/06b6d4/white?text=Vai+Comigo!'; this.onerror=null;">
+                <img src="colegas-da-universidade-posando-na-universidade.jpg" class="w-full h-90 object-cover" onerror="this.src='https://placehold.co/1200x300/06b6d4/white?text=Vai+Comigo!'; this.onerror=null;">
                 
                 <div class="container mx-auto max-w-6xl px-4 pt-4 text-center">
                     <h2 class="text-4xl font-bold text-dark-gray mb-4">Sua plataforma de caronas universitárias</h2>
@@ -785,7 +785,7 @@
 
         // --- BANCO DE DADOS PADRÃO ---
         
-        // [CORREÇÃO] Adicionada a propriedade 'mapURL' com links reais
+        // [CORREÇÃO] Adicionada as propriedades 'mapImage' e 'mapLink'
         const defaultRideData = [
             {
                 id: 'r1',
@@ -797,8 +797,9 @@
                 time: '17:30',
                 seats: 2,
                 status: 'available',
-                image: 'download (1).jpeg', 
-                mapURL: 'https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/@-21.2314803,-45.0123413,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!2m2!1d-45.0011657!2d-21.240885!1m5!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!2m2!1d-44.9768448!2d-21.2276878!3e0?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D', // <-- SEU LINK (1)
+                image: 'download (1).jpeg', // Miniatura da lista
+                mapImage: 'mapa-1.png', // Imagem do mapa para a página de detalhes
+                mapLink: 'https://www.google.com/maps/dir/Centro,+Lavras+-+MG/Biblioteca+do+Câmpus+-+UFLA,+Lavras+-+MG/', // Link real
                 driver: {
                     name: 'Ana Paula',
                     avatar: 'pexels-photo-733872.webp',
@@ -817,8 +818,9 @@
                 time: '12:30',
                 seats: 1,
                 status: 'available',
-                image: 'centro-lavras.webp', 
-                mapURL: 'https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/@-21.2314803,-45.0123413,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!2m2!1d-45.0011657!2d-21.240885!1m5!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!2m2!1d-44.9768448!2d-21.2276878!3e0?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3Destes', // <-- SEU LINK (2)
+                image: 'centro-lavras.webp', // Miniatura da lista
+                mapImage: 'mapa-2.png', // Imagem do mapa para a página de detalhes
+                mapLink: 'https://www.google.com/maps/dir/Cantina+Central+UFLA,+Lavras+-+MG/Centro,+Lavras+-+MG/', // Link real
                 driver: {
                     name: 'Carlos M.',
                     avatar: 'images (10).jpeg',
@@ -838,7 +840,8 @@
                 seats: 3,
                 status: 'available',
                 image: 'https://placehold.co/120x80/cffafe/0891b2?text=Sem foto',
-                mapURL: 'https://maps.app.goo.gl/w9v2iFp7q6F8gJkU9', // <-- Link de placeholder
+                mapImage: 'mapa-2.png', // Usando um mapa de fallback
+                mapLink: 'https://www.google.com/maps/dir/Portaria+da+UFLA,+Lavras+-+MG/Rodoviária,+Lavras+-+MG/', // Link real
                 driver: {
                     name: 'Mariana L.',
                     avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=ML',
@@ -858,7 +861,8 @@
                 seats: 2,
                 status: 'available',
                 image: 'https://placehold.co/120x80/a5f3fc/0891b2?text=Sem foto',
-                mapURL: 'https://maps.app.goo.gl/w9v2iFp7q6F8gJkU9', // <-- Link de placeholder
+                mapImage: 'mapa-1.png', // Usando um mapa de fallback
+                mapLink: 'https://www.google.com/maps/dir/Centro,+Lavras+-+MG/Cantina+Central+UFLA,+Lavras+-+MG/', // Link real
                 driver: {
                     name: 'Lucas F.',
                     avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=LF',
@@ -964,16 +968,13 @@
             }
             if (activeBtn) activeBtn.classList.add('active-link');
             
-            // [CORREÇÃO] A barra inferior agora é estática, mas ainda precisa ser escondida/mostrada
             const agendadasBar = document.getElementById('agendadas-bottom-bar');
             if (pageId === 'page-home' || pageId === 'page-select') {
                 agendadasBar.classList.remove('hidden');
-                // renderBottomBar(); // <--- CHAMADA REMOVIDA
             } else {
                 agendadasBar.classList.add('hidden');
             }
             
-            // if (pageId === 'page-home') renderHomeRides(); // Não é mais necessário
             if (pageId === 'page-select') applyFilters();
             if (pageId === 'page-history') renderHistoryPage(); 
             if (pageId === 'page-evaluate') handleStarRating(0);
@@ -988,24 +989,26 @@
 
         /**
          * [FUNÇÃO CORRIGIDA]
-         * Agora usa 'ride.mapURL' para o link e 'ride.image' para a imagem.
+         * Agora usa 'ride.mapLink' e 'ride.mapImage' para os detalhes.
+         * Também usa 'isBookedRide' para determinar o estado dos botões.
          */
         function navigateToRideDetail(rideId, isBookedRide = false) {
             let ride = dbRides.find(r => r.id === rideId);
-            let rideIsFromBookedList = false;
+            let rideWasFoundInBooked = false; // Valor calculado
             
             if (!ride) {
                 ride = dbBooked.find(r => r.id === rideId);
-                rideIsFromBookedList = true;
+                if (ride) { // Só marca true se realmente encontrar
+                    rideWasFoundInBooked = true;
+                }
             }
             
-            // [CORREÇÃO] Se a carona não for encontrada, verifica se é a 'r1' estática (da home)
+            // [CORREÇÃO] Bloco para garantir que o clique estático 'r1' da home sempre funcione
             if (!ride && rideId === 'r1') {
-                // Encontra a 'r1' original nos dados padrão
                 const r1Data = JSON.parse(JSON.stringify(defaultRideData.find(r => r.id === 'r1')));
                 if (r1Data) {
                     ride = r1Data;
-                    rideIsFromBookedList = true; // Força a barra a mostrar "Agendada"
+                    // O parâmetro 'isBookedRide' (que será true) vai cuidar de mostrar o estado correto
                 }
             }
 
@@ -1017,8 +1020,8 @@
             currentViewingRideId = rideId; 
 
             // [CORREÇÃO APLICADA AQUI]
-            document.getElementById('detail-map-link').href = ride.mapURL; // <-- Usa o link real do mapa
-            document.getElementById('detail-map-image').src = ride.image; // <-- Usa a imagem (foto)
+            document.getElementById('detail-map-link').href = ride.mapLink; // <-- Usa o link real do mapa
+            document.getElementById('detail-map-image').src = ride.mapImage; // <-- Usa a imagem do MAPA
             
             document.getElementById('detail-driver-avatar').src = ride.driver.avatar;
             document.getElementById('detail-driver-name').innerText = ride.driver.name;
@@ -1032,7 +1035,12 @@
             const actionsConfirm = document.getElementById('details-actions-confirm');
             const actionsConfirmed = document.getElementById('details-actions-confirmed');
 
-            if (rideIsFromBookedList) {
+            // A carona é considerada "agendada" se:
+            // 1. O clique veio de um local que JÁ SABE que está agendada (isBookedRide = true)
+            // 2. Ou se a carona foi encontrada na lista de 'dbBooked' (rideWasFoundInBooked = true)
+            const finalIsBooked = isBookedRide || rideWasFoundInBooked;
+
+            if (finalIsBooked) {
                 actionsConfirm.style.display = 'none'; 
                 actionsConfirmed.style.display = 'block';
             } else {
@@ -1055,8 +1063,8 @@
             
             // Impede que a carona 'r1' (exemplo estático) seja reservada se já estiver "agendada"
             if (currentViewingRideId === 'r1') {
-                 alert('Esta carona de exemplo já está agendada.');
-                 return;
+                alert('Esta carona de exemplo já está agendada.');
+                return;
             }
             
             const rideIndex = dbRides.findIndex(r => r.id === currentViewingRideId);
@@ -1099,6 +1107,10 @@
             renderHistoryPage(); 
         }
         
+        /**
+         * [FUNÇÃO CORRIGIDA]
+         * Adiciona 'mapImage' e 'mapLink'
+         */
         function submitNewRide() {
             const from = document.getElementById('offer-from').value;
             const to = document.getElementById('offer-to').value;
@@ -1124,8 +1136,9 @@
                 time: time,
                 seats: seats,
                 status: 'available',
-                image: 'https://placehold.co/120x80/cffafe/0891b2?text=NOVA',
-                mapURL: 'https://maps.app.goo.gl/w9v2iFp7q6F8gJkU9', // Link padrão
+                image: 'https://placehold.co/120x80/cffafe/0891b2?text=NOVA', // Miniatura
+                mapImage: 'mapa-1.png', // Imagem de mapa padrão
+                mapLink: 'https://www.google.com/maps', // Link de mapa padrão
                 driver: { 
                     name: profileName + ' (Você)',
                     avatar: 'perfil-sabrina.png',
@@ -1174,11 +1187,6 @@
         }
 
         // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA (COM CORREÇÕES) ---
-
-        /**
-         * [REMOVIDA]
-         * A função renderHomeRides() foi removida pois a home é estática.
-         */
 
         function renderRides(ridesToRender) {
             const container = document.getElementById('ride-list-container');
@@ -1359,11 +1367,6 @@
         function cancelarCaronaOferecida(rideId) {
             alert('Função para cancelar uma carona que VOCÊ ofereceu.\n(Lógica similar à `cancelarCarona`, mas remove de dbRides ou dbBooked e notifica passageiros).');
         }
-        
-        /**
-         * [FUNÇÃO REMOVIDA]
-         * renderBottomBar() foi removida. O HTML agora é estático.
-         */
         
         // --- 5. FUNÇÕES AUXILIARES E INICIALIZAÇÃO ---
 
