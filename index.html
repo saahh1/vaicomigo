@@ -686,7 +686,7 @@
                     </div>
                 </div>
 
-                <div class="flex-grow p-4 space-y-4 overflow-y-auto bg-gray-50">
+                <div id="chat-body" class="flex-grow p-4 space-y-4 overflow-y-auto bg-gray-50">
                     
                     <div class="flex justify-start">
                         <div class="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none max-w-xs sm:max-w-md">
@@ -715,13 +715,16 @@
                             <span class="text-xs text-cyan-100 block text-right mt-1">10:33</span>
                         </div>
                     </div>
-
-                </div>
+                    </div>
 
                 <div class="p-4 border-t border-gray-200 bg-white">
                     <div class="relative">
-                        <input type="text" placeholder="Esta é uma simulação de chat..." class="w-full p-3 pr-16 border border-gray-300 rounded-full bg-gray-100 cursor-not-allowed" disabled>
-                        <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-cyan-600 text-white p-2 rounded-full cursor-not-allowed" disabled>
+                        <input type="text" id="chat-input" 
+                               placeholder="Digite sua mensagem..." 
+                               class="w-full p-3 pr-16 border border-gray-300 rounded-full bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500"
+                               onkeydown="if(event.key === 'Enter') enviarMensagemChat()">
+                        <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-cyan-600 hover:bg-cyan-700 text-white p-2 rounded-full transition-colors"
+                                onclick="enviarMensagemChat()">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                             </svg>
@@ -758,7 +761,6 @@
         // --- BANCO DE DADOS PADRÃO ---
         
         // [CORREÇÃO] Caronas disponíveis para reserva
-        // Datas definidas como hoje (2025-11-10) ou amanhã (2025-11-11)
         const defaultRideData = [
             {
                 id: 'r1',
@@ -770,7 +772,7 @@
                 time: '17:30',
                 seats: 2,
                 status: 'available',
-                image: 'mapa-1.png',
+                image: 'download (1).jpeg', // [CORREÇÃO] Imagem original da home
                 driver: {
                     name: 'Ana Paula',
                     avatar: 'pexels-photo-733872.webp',
@@ -789,7 +791,7 @@
                 time: '12:30',
                 seats: 1,
                 status: 'available',
-                image: 'centro-lavras.webp',
+                image: 'centro-lavras.webp', // [CORREÇÃO] Imagem original da home
                 driver: {
                     name: 'Carlos M.',
                     avatar: 'images (10).jpeg',
@@ -863,13 +865,13 @@
             if (savedRides) {
                 dbRides = JSON.parse(savedRides);
             } else {
-                dbRides = defaultRideData; // Carrega o padrão
+                dbRides = defaultRideData; 
             }
 
             if (savedBooked) {
                 dbBooked = JSON.parse(savedBooked);
             } else {
-                dbBooked = []; // Inicia vazio
+                dbBooked = []; 
             }
             
             if (!savedRides && !savedBooked) {
@@ -946,8 +948,6 @@
                     activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
             }
             if (activeBtn) activeBtn.classList.add('active-link');
-
-            // --- Lógica Específica da Página ---
             
             const agendadasBar = document.getElementById('agendadas-bottom-bar');
             if (pageId === 'page-home' || pageId === 'page-select') {
@@ -957,7 +957,6 @@
                 agendadasBar.classList.add('hidden');
             }
             
-            // [NOVO] Renderiza a lista da home
             if (pageId === 'page-home') renderHomeRides(); 
             if (pageId === 'page-select') applyFilters();
             if (pageId === 'page-history') renderHistoryPage(); 
@@ -1115,11 +1114,42 @@
             alert('Carona publicada com sucesso!');
             navigateTo('page-history'); 
         }
+        
+        /**
+         * [NOVA FUNÇÃO]
+         * Envia uma mensagem (simulada) no chat
+         */
+        function enviarMensagemChat() {
+            const input = document.getElementById('chat-input');
+            const chatBody = document.getElementById('chat-body');
+            
+            if (!input || !chatBody) return; // Segurança
+            
+            const mensagem = input.value.trim();
+
+            if (mensagem === '') return; // Não envia nada se vazio
+
+            // Cria o HTML do balão de mensagem
+            // Escapa HTML simples para segurança
+            const escapedMessage = mensagem.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            
+            const novaMensagemHTML = `
+            <div class="flex justify-end">
+                <div class="bg-cyan-600 text-white p-3 rounded-lg rounded-br-none max-w-xs sm:max-w-md">
+                    <p>${escapedMessage}</p>
+                    <span class="text-xs text-cyan-100 block text-right mt-1">Agora</span>
+                </div>
+            </div>`;
+            
+            chatBody.innerHTML += novaMensagemHTML; // Adiciona a mensagem
+            input.value = ''; // Limpa o input
+            chatBody.scrollTop = chatBody.scrollHeight; // Rola para o final
+        }
 
         // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA (COM CORREÇÕES) ---
 
         /**
-         * [NOVA FUNÇÃO]
+         * [FUNÇÃO NOVA/CORRIGIDA]
          * Desenha a lista de caronas da página inicial
          */
         function renderHomeRides() {
@@ -1141,7 +1171,7 @@
             if (upcomingBooked.length > 0) {
                 const ride = upcomingBooked[0]; // Pega a mais próxima
                 container.innerHTML += `
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-pointer" onclick="navigateToRideDetail('${ride.id}')">
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-pointer" onclick="navigateToRideDetail('${ride.id}', true)">
                     <img src="${ride.image}" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
                     <div>
                         <h4 class="font-bold text-gray-500 line-through">${ride.title}</h4>
@@ -1577,6 +1607,25 @@
         // --- INICIALIZAÇÃO DA APLICAÇÃO ---
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Define a data de "hoje" para o protótipo
+            // Isso garante que "Hoje" e "Amanhã" sempre funcionem
+            // Vamos fixar "hoje" como 10 de Novembro de 2025
+            const hojeFixo = new Date('2025-11-10T12:00:00.000Z');
+            
+            // Substitui a função Date() global para fins de simulação
+            // Isso é um truque avançado, mas garante que o 'new Date()'
+            // sempre retorne 10/11/2025 no fuso horário local.
+            Date = class extends Date {
+                constructor(date) {
+                    if (date) {
+                        super(date);
+                    } else {
+                        // Se 'new Date()' for chamado sem argumentos, retorna nossa data fixa
+                        super(hojeFixo);
+                    }
+                }
+            };
+            
             loadDatabases();
             loadProfileData(); 
 
