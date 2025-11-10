@@ -142,11 +142,12 @@
                         </div>
                         <div id="home-ride-list-static" class="space-y-4">
                             
-                            <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-not-allowed">
+                            <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-pointer"
+                                 onclick="navigateToRideDetail('r1', true)">
                                 <img src="download (1).jpeg" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
                                 <div>
                                     <h4 class="font-bold text-gray-500 line-through">Lavras (Centro) → Biblioteca (UFLA)</h4>
-                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA</p>
+                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA (EXEMPLO)</p>
                                 </div>
                             </div>
                             
@@ -759,7 +760,13 @@
             <h3 class="text-lg font-bold text-dark-gray">Caronas agendadas:</h3>
             
             <div id="bottom-bar-content" class="flex-grow flex justify-center">
+                <div class="flex items-center space-x-2 bg-cyan-50 p-2 rounded-lg border border-cyan-200 cursor-pointer hover:bg-cyan-100" 
+                     onclick="navigateToRideDetail('r1', true)">
+                    <img src="pexels-photo-733872.webp" alt="Motorista" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://placehold.co/30x30/a5f3fc/0891b2?text=AN'; this.onerror=null;">
+                    <p class="text-sm text-gray-700">Centro (Lavras) → Biblioteca (UFLA) com <span class="font-semibold">Ana Paula</span></p>
+                    <span class="text-sm font-bold text-cyan-700">Amanhã, 17:30</span>
                 </div>
+            </div>
             
             <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-history'); return false;">Ver histórico →</a>
         </div>
@@ -778,8 +785,6 @@
 
         // --- BANCO DE DADOS PADRÃO ---
         
-        // [CORREÇÃO] Caronas disponíveis para reserva
-        // Datas definidas como hoje (2025-11-10) ou amanhã (2025-11-11)
         const defaultRideData = [
             {
                 id: 'r1',
@@ -791,7 +796,7 @@
                 time: '17:30',
                 seats: 2,
                 status: 'available',
-                image: 'download (1).jpeg', // [CORREÇÃO] Imagem original da home
+                image: 'download (1).jpeg', // Imagem original da home
                 driver: {
                     name: 'Ana Paula',
                     avatar: 'pexels-photo-733872.webp',
@@ -954,15 +959,16 @@
             }
             if (activeBtn) activeBtn.classList.add('active-link');
             
+            // [CORREÇÃO] A barra inferior agora é estática, mas ainda precisa ser escondida/mostrada
             const agendadasBar = document.getElementById('agendadas-bottom-bar');
             if (pageId === 'page-home' || pageId === 'page-select') {
                 agendadasBar.classList.remove('hidden');
-                renderBottomBar(); 
+                // renderBottomBar(); // <--- CHAMADA REMOVIDA
             } else {
                 agendadasBar.classList.add('hidden');
             }
             
-            // if (pageId === 'page-home') renderHomeRides(); // Não é mais necessário, home é estática
+            // if (pageId === 'page-home') renderHomeRides(); // Não é mais necessário
             if (pageId === 'page-select') applyFilters();
             if (pageId === 'page-history') renderHistoryPage(); 
             if (pageId === 'page-evaluate') handleStarRating(0);
@@ -982,6 +988,12 @@
             if (!ride) {
                 ride = dbBooked.find(r => r.id === rideId);
                 rideIsFromBookedList = true;
+            }
+            
+            // [CORREÇÃO] Se a carona não for encontrada, verifica se é a 'r1' estática
+            if (!ride && rideId === 'r1') {
+                ride = defaultRideData.find(r => r.id === 'r1');
+                rideIsFromBookedList = true; // Força a barra a mostrar "Agendada"
             }
 
             if (!ride) {
@@ -1025,6 +1037,12 @@
             if (!currentViewingRideId) {
                 alert('Erro: ID da carona não encontrado.');
                 return;
+            }
+            
+            // Impede que a carona 'r1' (exemplo estático) seja reservada se já estiver "agendada"
+            if (currentViewingRideId === 'r1') {
+                 alert('Esta carona de exemplo já está agendada.');
+                 return;
             }
             
             const rideIndex = dbRides.findIndex(r => r.id === currentViewingRideId);
@@ -1123,22 +1141,16 @@
             navigateTo('page-history'); 
         }
         
-        /**
-         * [NOVA FUNÇÃO]
-         * Envia uma mensagem (simulada) no chat
-         */
         function enviarMensagemChat() {
             const input = document.getElementById('chat-input');
             const chatBody = document.getElementById('chat-body');
             
-            if (!input || !chatBody) return; // Segurança
+            if (!input || !chatBody) return;
             
             const mensagem = input.value.trim();
 
-            if (mensagem === '') return; // Não envia nada se vazio
+            if (mensagem === '') return; 
 
-            // Cria o HTML do balão de mensagem
-            // Escapa HTML simples para segurança
             const escapedMessage = mensagem.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             
             const novaMensagemHTML = `
@@ -1149,9 +1161,9 @@
                 </div>
             </div>`;
             
-            chatBody.innerHTML += novaMensagemHTML; // Adiciona a mensagem
-            input.value = ''; // Limpa o input
-            chatBody.scrollTop = chatBody.scrollHeight; // Rola para o final
+            chatBody.innerHTML += novaMensagemHTML;
+            input.value = ''; 
+            chatBody.scrollTop = chatBody.scrollHeight; 
         }
 
         // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA (COM CORREÇÕES) ---
@@ -1203,10 +1215,6 @@
             });
         }
         
-        /**
-         * [FUNÇÃO CORRIGIDA]
-         * Desenha a página de histórico dinamicamente
-         */
         function renderHistoryPage() {
             const profileName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
             
@@ -1259,7 +1267,7 @@
                 }
             });
 
-            // 2. [CORREÇÃO] Renderiza o histórico ESTÁTICO (o que você queria de volta)
+            // 2. Renderiza o histórico ESTÁTICO
             staticPastHistory.forEach(ride => {
                 pastPassCount++;
                 let html = '';
@@ -1298,7 +1306,7 @@
 
 
             // 3. Processa Caronas Oferecidas (Motorista)
-            const allRides = dbRides.concat(dbBooked); // Pega todas as caronas (ofertadas estão em dbRides)
+            const allRides = dbRides.concat(dbBooked); 
             const offeredRides = allRides.filter(r => r.driver.name.includes(profileName));
 
             offeredRides.forEach(ride => {
@@ -1346,35 +1354,10 @@
         }
         
         /**
-         * Renderiza a barra inferior de caronas agendadas
+         * [FUNÇÃO REMOVIDA]
+         * renderBottomBar() foi removida. O HTML agora é estático.
          */
-        function renderBottomBar() {
-            const container = document.getElementById('bottom-bar-content');
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            const upcomingBookedRides = dbBooked.filter(ride => {
-                const [year, month, day] = ride.date.split('-').map(Number);
-                const rideDate = new Date(year, month - 1, day);
-                return rideDate >= today;
-            });
-
-            if (upcomingBookedRides.length === 0) {
-                container.innerHTML = '<p class="text-sm text-gray-500">Nenhuma carona agendada no momento.</p>';
-                return;
-            }
-            
-            const nextRide = upcomingBookedRides.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
-            
-            container.innerHTML = `
-            <div class="flex items-center space-x-2 bg-cyan-50 p-2 rounded-lg border border-cyan-200 cursor-pointer hover:bg-cyan-100" 
-                 onclick="navigateToRideDetail('${nextRide.id}', true)">
-                <img src="${nextRide.driver.avatar}" alt="Motorista" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://placehold.co/30x30/a5f3fc/0891b2?text=...'; this.onerror=null;">
-                <p class="text-sm text-gray-700">${nextRide.title} com <span class="font-semibold">${nextRide.driver.name}</span></p>
-                <span class="text-sm font-bold text-cyan-700">${getRelativeDate(nextRide.date)}, ${nextRide.time}</span>
-            </div>`;
-        }
-
+        
         // --- 5. FUNÇÕES AUXILIARES E INICIALIZAÇÃO ---
 
         function getRelativeDate(dateString) {
@@ -1598,4 +1581,3 @@
 
 </body>
 </html>
-
