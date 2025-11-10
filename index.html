@@ -772,7 +772,8 @@
         let dbBooked = []; // Banco de dados de caronas reservadas pelo usuário
 
         // --- BANCO DE DADOS PADRÃO ---
-        // (Usado apenas se o localStorage estiver vazio)
+        
+        // [CORREÇÃO] Caronas disponíveis para reserva
         const defaultRideData = [
             {
                 id: 'r1',
@@ -780,7 +781,7 @@
                 description: 'Saída: Centro - Chegada: Campus',
                 origin: 'Centro (Lavras)',
                 destination: 'Biblioteca (UFLA)',
-                date: '2025-11-09',
+                date: '2025-11-11', // Amanhã
                 time: '17:30',
                 seats: 2,
                 status: 'available',
@@ -799,7 +800,7 @@
                 description: 'Saída: Campus - Chegada: Centro',
                 origin: 'Cantina (UFLA)',
                 destination: 'Centro (Lavras)',
-                date: '2025-11-10', // Data de hoje
+                date: '2025-11-10', // Hoje
                 time: '12:30',
                 seats: 1,
                 status: 'available',
@@ -818,7 +819,7 @@
                 description: 'Saída: Campus - Chegada: Rodoviária',
                 origin: 'Portaria (UFLA)',
                 destination: 'Rodoviária (Lavras)',
-                date: '2025-11-10', // Data de hoje
+                date: '2025-11-10', // Hoje
                 time: '08:00',
                 seats: 3,
                 status: 'available',
@@ -849,42 +850,27 @@
                     rides: 7,
                     bio: 'Podemos rachar um som!'
                 }
-            },
-            // Carona de exemplo no passado para o histórico
-            {
-                id: 'r5_past',
-                title: 'UFLA → Centro (Lavras)',
-                description: 'Viagem passada',
-                origin: 'UFLA',
-                destination: 'Centro (Lavras)',
-                date: '2025-11-08', // Data passada
-                time: '14:00',
-                seats: 0,
-                status: 'completed',
-                image: 'https://placehold.co/120x80/a5f3fc/0891b2?text=MAP',
-                driver: {
-                    name: 'Angela Barrera',
-                    avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=AB',
-                    rating: '4.9',
-                    rides: 22,
-                    bio: 'Pontual e segura.'
-                }
             }
+        ];
+        
+        // [CORREÇÃO] Histórico passado ESTÁTICO que você queria de volta
+        const staticPastHistory = [
+            { id: 'h0', title: 'UFLA → Centro (Lavras) | Carona com Angela Barrera', date: 'Dois dias atrás, 14:00', status: 'evaluate' },
+            { id: 'h1', title: 'UFLA → Centro (Lavras) | Carona com Jenaina Ribeiro', date: 'Ontem, 18:00', status: 'completed' },
+            { id: 'h2', title: 'Centro → Cantina - UFLA (Lavras) | Carona com Gabriel Fonseca', date: 'Dois dias atrás, 07:15', status: 'completed' },
+            { id: 'h3', title: 'Centro → Saúde Fit (Lavras) | Carona com João Carlos', date: 'Semana passada, 13:00', status: 'completed' },
+            { id: 'h4', title: 'UFLA → Rodoviária (Belo Horizonte) | Carona com Wanessa', date: 'Mês passado', status: 'cancelled' },
+            { id: 'h5', title: 'UFLA → Centro (Lavras) | Carona com Karen Luz', date: 'Três dias atrás, 12:00', status: 'completed' },
+            { id: 'h6', title: 'Biblioteca (UFLA) → Tabacaria (Lavras) | Carona com João Miguel', date: 'Semana passada, 17:30', status: 'completed' }
         ];
         
         // --- 1. INICIALIZAÇÃO E BANCO DE DADOS (localStorage) ---
 
-        /**
-         * Salva ambos os bancos de dados no localStorage
-         */
         function saveDatabases() {
             localStorage.setItem('vaicomigo_rideData', JSON.stringify(dbRides));
             localStorage.setItem('vaicomigo_bookedRides', JSON.stringify(dbBooked));
         }
 
-        /**
-         * Carrega os bancos de dados do localStorage ou usa o padrão
-         */
         function loadDatabases() {
             const savedRides = localStorage.getItem('vaicomigo_rideData');
             const savedBooked = localStorage.getItem('vaicomigo_bookedRides');
@@ -898,22 +884,16 @@
             if (savedBooked) {
                 dbBooked = JSON.parse(savedBooked);
             } else {
-                // Adiciona uma carona passada e uma futura ao histórico por padrão
-                const rideToBookPast = dbRides.pop(); // Remove r5_past
-                const rideToBookFuture = dbRides.shift(); // Remove r1
-                
-                rideToBookPast.status = 'completed';
-                rideToBookFuture.status = 'booked';
-
-                dbBooked = [rideToBookPast, rideToBookFuture];
+                // [CORREÇÃO] Inicia a lista de caronas reservadas vazia por padrão
+                dbBooked = []; 
             }
             
-            saveDatabases(); // Salva o estado inicial (importante)
+            // Primeira vez que roda, salva o estado inicial
+            if (!savedRides && !savedBooked) {
+                saveDatabases();
+            }
         }
         
-        /**
-         * Carrega os dados do perfil (nome, bio, etc.)
-         */
         function loadProfileData() {
             const savedName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
             const savedCourse = localStorage.getItem('vaicomigo_profileCourse') || "BICT - UFLA";
@@ -933,7 +913,6 @@
                 displayBio.classList.remove('text-gray-700');
             }
             
-            // Pré-popula o formulário de edição
             document.getElementById('edit-name').value = savedName;
             document.getElementById('edit-course').value = savedCourse;
             document.getElementById('edit-bio').value = savedBio;
@@ -941,9 +920,6 @@
 
         // --- 2. LÓGICA DE NAVEGAÇÃO E RENDERIZAÇÃO ---
 
-        /**
-         * Controla a exibição das "páginas" (seções)
-         */
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
                 section.style.display = 'none';
@@ -957,7 +933,6 @@
                 pageId = 'page-home';
             }
 
-            // Atualiza os links ativos no header
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active-link');
             });
@@ -991,7 +966,6 @@
 
             // --- Lógica Específica da Página ---
             
-            // Barra inferior só aparece na home e na busca
             const agendadasBar = document.getElementById('agendadas-bottom-bar');
             if (pageId === 'page-home' || pageId === 'page-select') {
                 agendadasBar.classList.remove('hidden');
@@ -1000,27 +974,19 @@
                 agendadasBar.classList.add('hidden');
             }
             
-            // Renderiza listas dinâmicas ao visitar as páginas
             if (pageId === 'page-select') applyFilters();
-            if (pageId === 'page-history') renderHistoryPage();
+            if (pageId === 'page-history') renderHistoryPage(); // Renderiza o histórico ao visitar
             if (pageId === 'page-evaluate') handleStarRating(0);
         }
 
-        /**
-         * Navegador principal. Usado pela maioria dos botões.
-         */
         function navigateTo(pageId) {
-            currentViewingRideId = null; // Reseta o ID ao navegar
+            currentViewingRideId = null; 
             window.scrollTo(0, 0);
             history.pushState({ page: pageId }, '', '#' + pageId);
             showPage(pageId);
         }
 
-        /**
-         * Navegação especial para a página de detalhes da carona
-         */
         function navigateToRideDetail(rideId, isBookedRide = false) {
-            // Encontra a carona em qualquer um dos bancos de dados
             let ride = dbRides.find(r => r.id === rideId);
             let rideIsFromBookedList = false;
             
@@ -1034,9 +1000,8 @@
                 return;
             }
 
-            currentViewingRideId = rideId; // Armazena o ID que estamos vendo
+            currentViewingRideId = rideId; 
 
-            // Preenche o template 'page-details' com os dados da carona
             document.getElementById('detail-map-image').src = ride.image;
             document.getElementById('detail-map-link').href = `http://googleusercontent.com/maps.google.com/${ride.id}`;
             
@@ -1049,19 +1014,17 @@
             document.getElementById('detail-destination').innerText = ride.destination;
             document.getElementById('detail-time').innerText = `${getRelativeDate(ride.date)}, ${ride.time}`;
 
-            // Controla quais botões aparecem
             const actionsConfirm = document.getElementById('details-actions-confirm');
             const actionsConfirmed = document.getElementById('details-actions-confirmed');
 
             if (rideIsFromBookedList) {
-                actionsConfirm.style.display = 'none'; // Esconde "Confirmar"
-                actionsConfirmed.style.display = 'block'; // Mostra "Agendada"
+                actionsConfirm.style.display = 'none'; 
+                actionsConfirmed.style.display = 'block';
             } else {
-                actionsConfirm.style.display = 'block'; // Mostra "Confirmar"
-                actionsConfirmed.style.display = 'none'; // Esconde "Agendada"
+                actionsConfirm.style.display = 'block';
+                actionsConfirmed.style.display = 'none';
             }
 
-            // Navega para a página de detalhes
             window.scrollTo(0, 0);
             history.pushState({ page: 'page-details' }, '', '#page-details');
             showPage('page-details');
@@ -1069,71 +1032,57 @@
 
         // --- 3. FUNCIONALIDADES PRINCIPAIS (Reservar, Cancelar, Oferecer) ---
 
-        /**
-         * Chamada ao clicar em "Confirmar Carona"
-         */
         function reservarCarona() {
             if (!currentViewingRideId) {
                 alert('Erro: ID da carona não encontrado.');
                 return;
             }
             
-            // Encontra o índice da carona no banco de dados de disponíveis
             const rideIndex = dbRides.findIndex(r => r.id === currentViewingRideId);
             if (rideIndex === -1) {
-                alert('Erro: Carona não está mais disponível.');
+                // Verifica se já foi reservada (está em dbBooked)
+                if (dbBooked.find(r => r.id === currentViewingRideId)) {
+                    alert('Erro: Você já reservou esta carona.');
+                } else {
+                    alert('Erro: Carona não está mais disponível.');
+                }
                 return;
             }
 
-            // Remove a carona de dbRides
             const [bookedRide] = dbRides.splice(rideIndex, 1);
             
-            // Adiciona ao dbBooked
             bookedRide.status = 'booked';
             dbBooked.push(bookedRide);
 
-            // Salva as mudanças
             saveDatabases();
 
-            // Reseta o ID e navega para a página de confirmação
             currentViewingRideId = null;
             navigateTo('page-confirm');
         }
 
-        /**
-         * Chamada ao clicar em "Cancelar Carona" no histórico
-         */
         function cancelarCarona(rideId) {
             if (!confirm('Você tem certeza que deseja cancelar esta carona?')) {
                 return;
             }
 
-            // Encontra o índice da carona no banco de dados de RESERVADAS
             const rideIndex = dbBooked.findIndex(r => r.id === rideId);
             if (rideIndex === -1) {
                 alert('Erro: Carona não encontrada na sua lista.');
                 return;
             }
 
-            // Remove a carona de dbBooked
             const [cancelledRide] = dbBooked.splice(rideIndex, 1);
             
-            // Devolve ela para dbRides
             cancelledRide.status = 'available';
             dbRides.push(cancelledRide);
 
-            // Salva as mudanças
             saveDatabases();
 
             alert('Carona cancelada com sucesso.');
             
-            // Re-renderiza a página de histórico para mostrar a mudança
-            renderHistoryPage();
+            renderHistoryPage(); // Re-renderiza a página de histórico
         }
         
-        /**
-         * Publica uma nova carona
-         */
         function submitNewRide() {
             const from = document.getElementById('offer-from').value;
             const to = document.getElementById('offer-to').value;
@@ -1150,7 +1099,7 @@
             const profileName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
             
             const newRide = {
-                id: 'r' + new Date().getTime(), // ID único baseado no tempo
+                id: 'r' + new Date().getTime(), 
                 title: `${from} → ${to}`,
                 description: `Saída: ${from} - Chegada: ${to}` + (info ? ` (${info})` : ''),
                 origin: from,
@@ -1160,7 +1109,7 @@
                 seats: seats,
                 status: 'available',
                 image: 'https://placehold.co/120x80/cffafe/0891b2?text=NOVA',
-                driver: { // Você é o motorista
+                driver: { 
                     name: profileName + ' (Você)',
                     avatar: 'perfil-sabrina.png',
                     rating: 'Novo',
@@ -1169,10 +1118,9 @@
                 }
             };
             
-            dbRides.unshift(newRide); // Adiciona no início da lista
+            dbRides.unshift(newRide); 
             saveDatabases();
 
-            // Limpa o formulário
             document.getElementById('offer-from').value = '';
             document.getElementById('offer-to').value = '';
             document.getElementById('offer-date').value = '';
@@ -1181,19 +1129,16 @@
             document.getElementById('offer-seats').value = '2';
 
             alert('Carona publicada com sucesso!');
-            navigateTo('page-history'); // Navega para o histórico para ver a carona
+            navigateTo('page-history'); 
         }
 
-        // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA ---
+        // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA (COM CORREÇÕES) ---
 
-        /**
-         * Desenha a lista de caronas disponíveis em 'page-select'
-         */
         function renderRides(ridesToRender) {
             const container = document.getElementById('ride-list-container');
             if (!container) return;
             
-            container.innerHTML = ''; // Limpa a lista
+            container.innerHTML = ''; 
 
             if (ridesToRender.length === 0) {
                 container.innerHTML = `<p class="text-gray-600 text-center p-4 bg-white rounded-lg shadow-sm">Nenhuma carona encontrada com esses filtros.</p>`;
@@ -1201,7 +1146,6 @@
             }
 
             ridesToRender.forEach(ride => {
-                // Não mostra caronas que são do próprio usuário na busca
                 if (ride.driver.name.includes('(Você)')) {
                     return;
                 }
@@ -1211,7 +1155,6 @@
                 const vagasText = ride.seats > 0 ? `${ride.seats} vaga${ride.seats > 1 ? 's' : ''}` : 'Lotado';
                 const vagasClass = ride.seats > 0 ? 'text-orange-600' : 'text-red-600';
 
-                // NOTE O ONCLICK: chama navigateToRideDetail com o ID da carona
                 html = `
                 <div class="bg-cyan-50 p-4 rounded-lg border border-cyan-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" 
                      onclick="navigateToRideDetail('${ride.id}')">
@@ -1234,20 +1177,21 @@
         }
         
         /**
+         * [FUNÇÃO CORRIGIDA]
          * Desenha a página de histórico dinamicamente
          */
         function renderHistoryPage() {
             const profileName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
+            
+            // [CORREÇÃO DA DATA] Cria a data de "hoje" zerada para comparação correta
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // Zera o horário para comparar só as datas
+            today.setHours(0, 0, 0, 0); 
 
-            // Containers de destino
             const upPassContainer = document.getElementById('upcoming-passenger-rides');
             const pastPassContainer = document.getElementById('past-passenger-rides');
             const upDriverContainer = document.getElementById('upcoming-driver-rides');
             const pastDriverContainer = document.getElementById('past-driver-rides');
 
-            // Limpa containers
             upPassContainer.innerHTML = '';
             pastPassContainer.innerHTML = '';
             upDriverContainer.innerHTML = '';
@@ -1255,10 +1199,13 @@
 
             let upPassCount = 0, pastPassCount = 0, upDriverCount = 0, pastDriverCount = 0;
             
-            // 1. Processa Caronas Reservadas (Passageiro)
+            // 1. Processa Caronas Reservadas DINÂMICAS (dbBooked)
             dbBooked.forEach(ride => {
-                const rideDate = new Date(ride.date);
                 const dateText = `${getRelativeDate(ride.date)}, ${ride.time}`;
+                
+                // [CORREÇÃO DA DATA] Parse manual da data para evitar fuso horário
+                const [year, month, day] = ride.date.split('-').map(Number);
+                const rideDate = new Date(year, month - 1, day); 
 
                 if (rideDate >= today) { // Próximas viagens
                     upPassCount++;
@@ -1272,7 +1219,7 @@
                             Cancelar Carona
                         </button>
                     </div>`;
-                } else { // Viagens passadas
+                } else { // Viagens passadas (dinâmicas)
                     pastPassCount++;
                     pastPassContainer.innerHTML += `
                     <div class="ride-history-item bg-yellow-50 p-4 rounded-lg border border-yellow-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
@@ -1287,15 +1234,55 @@
                 }
             });
 
-            // 2. Processa Caronas Oferecidas (Motorista)
-            // Filtra de dbRides (disponíveis) e dbBooked (passageiros já agendaram)
+            // 2. [CORREÇÃO] Renderiza o histórico ESTÁTICO (o que você queria de volta)
+            staticPastHistory.forEach(ride => {
+                pastPassCount++;
+                let html = '';
+                if (ride.status === 'evaluate') {
+                    html = `
+                    <div class="ride-history-item bg-yellow-50 p-4 rounded-lg border border-yellow-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${ride.date}</p>
+                        </div>
+                        <button onclick="navigateTo('page-evaluate')" class="text-sm font-medium text-yellow-800 bg-yellow-200 hover:bg-yellow-300 px-3 py-1 rounded-full transition-colors w-full sm:w-auto">
+                            Avaliar
+                        </button>
+                    </div>`;
+                } else if (ride.status === 'completed') {
+                    html = `
+                    <div class="ride-history-item bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${ride.date}</p>
+                        </div>
+                        <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                    </div>`;
+                } else if (ride.status === 'cancelled') {
+                    html = `
+                    <div class="ride-history-item bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2 opacity-60">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 line-through">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${ride.date}</p>
+                        </div>
+                        <span class="text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">Cancelada</span>
+                    </div>`;
+                }
+                pastPassContainer.innerHTML += html;
+            });
+
+
+            // 3. Processa Caronas Oferecidas (Motorista)
             const allRides = dbRides.concat(dbBooked);
             const offeredRides = allRides.filter(r => r.driver.name.includes(profileName));
 
             offeredRides.forEach(ride => {
-                const rideDate = new Date(ride.date);
                 const dateText = `${getRelativeDate(ride.date)}, ${ride.time}`;
-                const passageiros = ride.status === 'booked' ? '1 passageiro' : 'Aguardando passageiros'; // Lógica simples
+                const passageiros = ride.status === 'booked' ? '1 passageiro' : 'Aguardando passageiros';
+
+                // [CORREÇÃO DA DATA] Parse manual
+                const [year, month, day] = ride.date.split('-').map(Number);
+                const rideDate = new Date(year, month - 1, day);
 
                 if (rideDate >= today) { // Próximas oferecidas
                     upDriverCount++;
@@ -1332,10 +1319,10 @@
         // Função placeholder para cancelar uma carona OFERECIDA
         function cancelarCaronaOferecida(rideId) {
             alert('Função para cancelar uma carona que VOCÊ ofereceu.\n(Lógica similar à `cancelarCarona`, mas remove de dbRides ou dbBooked e notifica passageiros).');
-            // Implementação completa seria mais complexa (ex: achar em dbRides ou dbBooked e remover)
         }
         
         /**
+         * [FUNÇÃO CORRIGIDA]
          * Renderiza a barra inferior de caronas agendadas
          */
         function renderBottomBar() {
@@ -1343,14 +1330,18 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            const upcomingBookedRides = dbBooked.filter(ride => new Date(ride.date) >= today);
+            // [CORREÇÃO DA DATA] Filtra usando o parse manual
+            const upcomingBookedRides = dbBooked.filter(ride => {
+                const [year, month, day] = ride.date.split('-').map(Number);
+                const rideDate = new Date(year, month - 1, day);
+                return rideDate >= today;
+            });
 
             if (upcomingBookedRides.length === 0) {
                 container.innerHTML = '<p class="text-sm text-gray-500">Nenhuma carona agendada no momento.</p>';
                 return;
             }
             
-            // Pega a carona mais próxima
             const nextRide = upcomingBookedRides.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
             
             container.innerHTML = `
@@ -1365,6 +1356,7 @@
         // --- 5. FUNÇÕES AUXILIARES E INICIALIZAÇÃO ---
 
         /**
+         * [FUNÇÃO CORRIGIDA]
          * Converte uma data (ex: '2025-11-10') em "Hoje", "Amanhã" ou "10/11"
          */
         function getRelativeDate(dateString) {
@@ -1372,13 +1364,13 @@
             const tomorrow = new Date();
             tomorrow.setDate(today.getDate() + 1);
 
-            // Corrige o fuso horário (importante para comparação de datas)
+            // [CORREÇÃO DA DATA] Parse manual para evitar fuso
             const [year, month, day] = dateString.split('-').map(Number);
             const rideDate = new Date(year, month - 1, day); 
 
             today.setHours(0, 0, 0, 0);
             tomorrow.setHours(0, 0, 0, 0);
-            rideDate.setHours(0, 0, 0, 0);
+            // rideDate já está com 00:00:00 local
 
             if (rideDate.getTime() === today.getTime()) return 'Hoje';
             if (rideDate.getTime() === tomorrow.getTime()) return 'Amanhã';
@@ -1386,9 +1378,6 @@
             return rideDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
         }
         
-        /**
-         * Aplica os filtros da 'page-select'
-         */
         function applyFilters() {
             const searchText = document.getElementById('search-text-input').value.toLowerCase();
             const filterDate = document.getElementById('filter-date').value;
@@ -1459,7 +1448,7 @@
             localStorage.setItem('vaicomigo_profileBio', newBio);
 
             alert('Perfil atualizado com sucesso!');
-            loadProfileData(); // Recarrega os dados no perfil
+            loadProfileData(); 
             navigateTo('page-profile');
         }
 
@@ -1550,9 +1539,6 @@
 
         // --- INICIALIZAÇÃO DA APLICAÇÃO ---
 
-        /**
-         * Lida com o carregamento inicial da página e navegação por hash
-         */
         document.addEventListener('DOMContentLoaded', () => {
             loadDatabases();
             loadProfileData(); 
@@ -1569,9 +1555,6 @@
             history.replaceState({ page: initialPage }, '', '#' + initialPage);
         });
 
-        /**
-         * Lida com os botões "Voltar" e "Avançar" do navegador
-         */
         window.onpopstate = function(event) {
             if (event.state && event.state.page) {
                 showPage(event.state.page);
