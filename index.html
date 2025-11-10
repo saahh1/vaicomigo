@@ -60,13 +60,13 @@
             font-weight: 500;
         }
         .nav-link:hover {
-            background-color: #f0f9ff; /* MODIFICADO: bg-cyan-50 */
+            background-color: #f0f9ff; /* bg-cyan-50 */
         }
         /* Classe especial para o link ativo (página atual) */
         .nav-link.active-link {
-            background-color: #cffafe; /* MODIFICADO: bg-cyan-100 */
+            background-color: #cffafe; /* bg-cyan-100 */
             font-weight: 700;
-            color: #0e7490; /* MODIFICADO: text-cyan-700 */
+            color: #0e7490; /* text-cyan-700 */
         }
         
         /* Estilos para as estrelas de avaliação */
@@ -98,6 +98,7 @@
                 <button onclick="navigateTo('page-select')" class="nav-link">Procurar Carona</button>
                 <button onclick="navigateTo('page-offer')" class="nav-link">Oferecer Carona</button>
                 <button onclick="navigateTo('page-profile')" class="nav-link">Perfil</button>
+                <button onclick="navigateTo('page-chat')" class="nav-link">Chat</button>
             </div>
         </nav>
     </header>
@@ -149,7 +150,7 @@
                                 </div>
                             </div>
                             
-                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" onclick="navigateTo('page-details-2')">
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" onclick="navigateToRideDetail('r2')">
                                 <img src="centro-lavras.webp" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
                                 <div>
                                     <h4 class="font-bold text-cyan-900">Cantina (UFLA) → Centro (Lavras)</h4>
@@ -163,7 +164,8 @@
                 <div class="mb-8">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-xl font-bold text-dark-gray">Destinos populares</h3>
-<a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-popular-list'); return false;">Ver todos →</a>                </div>
+                        <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-popular-list'); return false;">Ver todos →</a>
+                    </div>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                     
                     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-3 text-center hover:shadow-md transition cursor-pointer" onclick="navigateToSearch('Biblioteca')">
@@ -271,8 +273,8 @@
                 <div class="flex flex-col md:flex-row gap-8">
                     <div class="flex-1">
                         
-                        <a href="https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/data=!4m8!4m7!1m2!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!1m2!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!3e0?sa=X&ved=1t:2040&ictx=111" target="_blank" rel="noopener noreferrer" class="group block relative">
-                            <img src="mapa-1.png" alt="Mapa da carona" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity" onerror="this.src='https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO+1'; this.onerror=null;">
+                        <a id="detail-map-link" href="#" target="_blank" rel="noopener noreferrer" class="group block relative">
+                            <img id="detail-map-image" src="https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO" alt="Mapa da carona" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity">
                             
                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300 rounded-lg mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -284,13 +286,13 @@
                         
                         <div class="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
                             <div class="flex items-center mb-2">
-                                <img src="pexels-photo-733872.webp" alt="Avatar Motorista" class="w-12 h-12 rounded-full mr-3 border border-gray-200 object-cover" onerror="this.src='https://placehold.co/50x50/f0f0f0/gray?text=AP'; this.onerror=null;">
+                                <img id="detail-driver-avatar" src="https://placehold.co/50x50/f0f0f0/gray?text=..." alt="Avatar Motorista" class="w-12 h-12 rounded-full mr-3 border border-gray-200 object-cover">
                                 <div>
-                                    <h3 class="font-bold text-xl text-cyan-900">Ana Paula</h3>
-                                    <p class="text-gray-700 text-sm">Avaliação: <span class="font-bold text-yellow-500">4.9</span> (18 caronas)</p>
+                                    <h3 id="detail-driver-name" class="font-bold text-xl text-cyan-900">Nome do Motorista</h3>
+                                    <p id="detail-driver-rating" class="text-gray-700 text-sm">Avaliação: <span class="font-bold text-yellow-500">...</span> (... caronas)</p>
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-600">"Gosto de ouvir música pop no caminho. Carro limpo e com ar-condicionado."</p>
+                            <p id="detail-driver-bio" class="text-sm text-gray-600">"Bio do motorista..."</p>
                         </div>
                     </div>
 
@@ -301,33 +303,33 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
                                     Local de Saída:
                                 </h4>
-                                <p class="pl-7 text-gray-800">Centro Lavras</p>
+                                <p id="detail-origin" class="pl-7 text-gray-800">Local de Saída</p>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
                                     Destino:
                                 </h4>
-                                <p class="pl-7 text-gray-800">Biblioteca (UFLA)</p>
+                                <p id="detail-destination" class="pl-7 text-gray-800">Destino</p>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /> </svg>
                                     Horário:
                                 </h4>
-                                <p class="pl-7 font-bold text-cyan-700 text-lg">Hoje, 17:30</p>
+                                <p id="detail-time" class="pl-7 font-bold text-cyan-700 text-lg">Horário</p>
                             </div>
                         </div>
 
                         <div id="details-actions-confirm" class="mt-10 space-y-3">
-                            <button onclick="navigateTo('page-confirm')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg transition duration-300">
+                            <button onclick="reservarCarona()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg transition duration-300">
                                 Confirmar Carona
                             </button>
                             <button onclick="navigateTo('page-select')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
                                 Cancelar e Voltar
                             </button>
                         </div>
-
+                        
                         <div id="details-actions-confirmed" class="mt-10 space-y-3" style="display: none;">
                             <button class="w-full bg-green-500 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg cursor-not-allowed flex items-center justify-center" disabled>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -335,79 +337,11 @@
                                 </svg>
                                 Carona Agendada
                             </button>
-                            <button onclick="navigateTo('page-home')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
-                                Voltar para Home
+                            <button onclick="navigateTo('page-history')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Voltar para o Histórico
                             </button>
                         </div>
 
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-details-2" class="page-section container mx-auto max-w-6xl px-4 py-8">
-            <h2 class="text-3xl font-bold text-dark-gray mb-6">Detalhes da Carona</h2>
-            
-            <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="flex-1">
-                        
-                        <a href="https://www.google.com/maps/dir/Centro+de+Conviv%C3%AAncia+da+UFLA,+C%C3%A2mpus+Universit%C3%A1rio,+s%2Fn+-+Aquenta+Sol,+Lavras+-+MG,+37200-000/Centro,+Lavras+-+MG,+37200-000/data=!4m8!4m7!1m2!1m1!1s0x9ffddeb89ea9e9:0xb423eae74596d846!1m2!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!3e0?sa=X&ved=1t:2040&ictx=111" target="_blank" rel="noopener noreferrer" class="group block relative">
-                            <img src="mapa-2.png" alt="Mapa da carona 2" class="w-full h-64 object-cover rounded-lg mb-6 shadow-sm group-hover:opacity-80 transition-opacity" onerror="this.src='https://placehold.co/600x300/a5f3fc/0891b2?text=MAPA+DO+TRAJETO+2'; this.onerror=null;">
-                            
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300 rounded-lg mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                                </svg>
-                            </div>
-                        </a>
-                        
-                        <div class="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
-                            <div class="flex items-center mb-2">
-                                <img src="images (10).jpeg" alt="Avatar Motorista" class="w-12 h-12 rounded-full mr-3 border border-gray-200 object-cover" onerror="this.src='https://placehold.co/50x50/f0f0f0/gray?text=CM'; this.onerror=null;">
-                                <div>
-                                    <h3 class="font-bold text-xl text-cyan-900">Carlos M.</h3>
-                                    <p class="text-gray-700 text-sm">Avaliação: <span class="font-bold text-yellow-500">4.7</span> (5 caronas)</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600">"Gosto de fazer o trajeto em silêncio."</p>
-                        </div>
-                    </div>
-
-                    <div class="flex-1">
-                        <div class="space-y-4 mb-8">
-                            <div>
-                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
-                                    Local de Saída:
-                                </h4>
-                                <p class="pl-7 text-gray-800">Cantina (UFLA)</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /> </svg>
-                                    Destino:
-                                </h4>
-                                <p class="pl-7 text-gray-800">Centro (Lavras)</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-700 flex items-center mb-1 text-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-cyan-600"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /> </svg>
-                                    Horário:
-                                </h4>
-                                <p class="pl-7 font-bold text-cyan-700 text-lg">Amanhã, 12:30</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-10 space-y-3">
-                            <button onclick="navigateTo('page-confirm')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-lg transition duration-300">
-                                Confirmar Carona
-                            </button>
-                            <button onclick="navigateTo('page-select')" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-300">
-                                Cancelar e Voltar
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -422,11 +356,11 @@
                 <h2 class="text-4xl font-bold text-gray-800 mb-4">Carona confirmada com sucesso!</h2>
                 
                 <p class="text-lg text-gray-600 mb-10">
-                    Você será notificado sobre os detalhes da carona.
+                    Sua carona já aparece em "Minhas Caronas".
                 </p>
                 
-                <button onclick="navigateTo('page-home')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition duration-300">
-                    Voltar para o Início
+                <button onclick="navigateTo('page-history')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-md transition duration-300">
+                    Ver Minhas Caronas
                 </button>
             </div>
         </section>
@@ -604,72 +538,32 @@
 
                 <div>
                     <div id="history-section-passageiro">
-                        <h4 class="text-lg font-semibold text-dark-gray mb-3 mt-4 border-b pb-2">
-                            Como Passageiro
-                        </h4>
-                        <div class="space-y-4">
-                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">UFLA → Centro (Lavras) | Carona com Angela Barrera</h4>
-                                    <p class="text-sm text-gray-600">Hoje, 14:00</p>
-                                </div>
-                                <button onclick="navigateTo('page-evaluate')" class="text-sm font-medium text-yellow-800 bg-yellow-200 hover:bg-yellow-300 px-3 py-1 rounded-full transition-colors">
-                                    Avaliar
-                                </button>
+                        
+                        <h3 class="text-xl font-bold text-cyan-800 mb-3 mt-4 border-b-2 border-cyan-100 pb-2">
+                            Próximas Viagens (Como Passageiro)
+                        </h3>
+                        <div id="upcoming-passenger-rides" class="space-y-4">
                             </div>
-                            
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">UFLA → Centro (Lavras) | Carona com Jenaina Ribeiro</h4>
-                                    <p class="text-sm text-gray-600">Ontem, 18:00</p>
-                                </div>
-                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+
+                        <h3 class="text-xl font-bold text-gray-700 mb-3 mt-10 border-b pb-2">
+                            Viagens Passadas (Como Passageiro)
+                        </h3>
+                        <div id="past-passenger-rides" class="space-y-4">
                             </div>
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">Centro → Cantina - UFLA (Lavras) | Carona com Gabriel Fonseca</h4>
-                                    <p class="text-sm text-gray-600">Dois dias atrás, 07:15</p>
-                                </div>
-                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">Centro → Saúde Fit (Lavras) | Carona com João Carlos</h4>
-                                    <p class="text-sm text-gray-600">Semana passada, 13:00</p>
-                                </div>
-                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">UFLA → Rodoviária (Belo Horizonte) | Carona com Wanessa</h4>
-                                    <p class="text-sm text-gray-600">Mês passado</p>
-                                </div>
-                                <span class="text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">Cancelada</span>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">UFLA → Centro (Lavras) | Carona com Karen Luz</h4>
-                                    <p class="text-sm text-gray-600">Três dias atrás, 12:00</p>
-                                </div>
-                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">Biblioteca (UFLA) → Tabacaria (Lavras) | Carona com João Miguel</h4>
-                                    <p class="text-sm text-gray-600">Semana passada, 17:30</p>
-                                </div>
-                                <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
-                            </div>
-                        </div>
                     </div>
 
                     <div id="history-section-motorista">
-                        <h4 class="text-lg font-semibold text-dark-gray mb-3 mt-8 border-b pb-2">
-                            Caronas Oferecidas
-                        </h4>
-                        <div class="space-y-4">
-                            <p class="text-sm text-gray-500 italic">Nenhuma carona oferecida no histórico.</p>
-                        </div>
+                        <h3 class="text-xl font-bold text-cyan-800 mb-3 mt-4 border-b-2 border-cyan-100 pb-2">
+                            Próximas Viagens (Como Motorista)
+                        </h3>
+                        <div id="upcoming-driver-rides" class="space-y-4">
+                            </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-700 mb-3 mt-10 border-b pb-2">
+                            Viagens Passadas (Como Motorista)
+                        </h3>
+                        <div id="past-driver-rides" class="space-y-4">
+                            </div>
                     </div>
                 </div>
             </div>
@@ -699,7 +593,7 @@
                                 <svg onclick="handleStarRating(1)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
                                 <svg onclick="handleStarRating(2)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
                                 <svg onclick="handleStarRating(3)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-<svg onclick="handleStarRating(4)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg onclick="handleStarRating(4)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
                                 <svg onclick="handleStarRating(5)" class="star-icon w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
                             </div>
                             <input type="hidden" id="rating-value" name="rating" value="0">
@@ -719,7 +613,8 @@
                 </form>
             </div>
         </section>
-<section id="page-no-rides" class="page-section container mx-auto max-w-6xl px-4 py-8">
+
+        <section id="page-no-rides" class="page-section container mx-auto max-w-6xl px-4 py-8">
             <div class="text-center py-16 bg-white p-10 rounded-lg shadow-lg max-w-2xl mx-auto">
                 <svg class="w-20 h-20 text-cyan-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -734,7 +629,8 @@
                 </button>
             </div>
         </section>
-<section id="page-popular-list" class="page-section container mx-auto max-w-6xl px-4 py-8">
+
+        <section id="page-popular-list" class="page-section container mx-auto max-w-6xl px-4 py-8">
             
             <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-8 gap-4">
                 <h2 class="text-3xl font-bold text-dark-gray">Destinos Populares</h2>
@@ -794,6 +690,62 @@
             </div>
         </section>
 
+        <section id="page-chat" class="page-section container mx-auto max-w-6xl px-4 py-8">
+            <h2 class="text-3xl font-bold text-dark-gray mb-8">Conversas</h2>
+            
+            <div class="bg-white rounded-lg shadow-lg border border-gray-200 max-w-3xl mx-auto flex flex-col" style="height: 70vh;">
+                <div class="flex items-center p-4 border-b border-gray-200">
+                    <img src="pexels-photo-733872.webp" alt="Avatar Motorista" class="w-10 h-10 rounded-full mr-3 border border-gray-200 object-cover" onerror="this.src='https://placehold.co/50x50/f0f0f0/gray?text=AP'; this.onerror=null;">
+                    <div>
+                        <h3 class="font-bold text-lg text-cyan-900">Ana Paula</h3>
+                        <p class="text-sm text-green-600">Online</p>
+                    </div>
+                </div>
+
+                <div class="flex-grow p-4 space-y-4 overflow-y-auto bg-gray-50">
+                    
+                    <div class="flex justify-start">
+                        <div class="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none max-w-xs sm:max-w-md">
+                            <p>Olá, Sabrina! Tudo certo para a carona de amanhã, 17:30?</p>
+                            <span class="text-xs text-gray-500 block text-right mt-1">10:30</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <div class="bg-cyan-600 text-white p-3 rounded-lg rounded-br-none max-w-xs sm:max-w-md">
+                            <p>Oi Ana! Tudo certo sim! Te encontro na frente da biblioteca, pode ser?</p>
+                            <span class="text-xs text-cyan-100 block text-right mt-1">10:31</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-start">
+                        <div class="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none max-w-xs sm:max-w-md">
+                            <p>Combinado! Meu carro é um Celta prata, placa HMA-1234. Te vejo lá!</p>
+                            <span class="text-xs text-gray-500 block text-right mt-1">10:32</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <div class="bg-cyan-600 text-white p-3 rounded-lg rounded-br-none max-w-xs sm:max-w-md">
+                            <p>Perfeito! Até amanhã! 😄</p>
+                            <span class="text-xs text-cyan-100 block text-right mt-1">10:33</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="p-4 border-t border-gray-200 bg-white">
+                    <div class="relative">
+                        <input type="text" placeholder="Esta é uma simulação de chat..." class="w-full p-3 pr-16 border border-gray-300 rounded-full bg-gray-100 cursor-not-allowed" disabled>
+                        <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-cyan-600 text-white p-2 rounded-full cursor-not-allowed" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     
@@ -801,13 +753,8 @@
         <div class="container mx-auto max-w-6xl flex justify-between items-center">
             <h3 class="text-lg font-bold text-dark-gray">Caronas agendadas:</h3>
             
-            <div class="flex-grow flex justify-center">
-                <div class="flex items-center space-x-2 bg-cyan-50 p-2 rounded-lg border border-cyan-200 cursor-pointer hover:bg-cyan-100" onclick="navigateTo('page-details', 'confirmed')">
-                    <img src="pexels-photo-733872.webp" alt="Motorista" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://placehold.co/30x30/a5f3fc/0891b2?text=AN'; this.onerror=null;">
-                    <p class="text-sm text-gray-700">Centro → Biblioteca (UFLA) com <span class="font-semibold">Ana Paula</span></p>
-                    <span class="text-sm font-bold text-cyan-700">Hoje, 17:30</span>
+            <div id="bottom-bar-content" class="flex-grow flex justify-center">
                 </div>
-            </div>
             
             <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-history'); return false;">Ver histórico →</a>
         </div>
@@ -819,70 +766,373 @@
     </footer>
 
     <script>
-        /**
-         * [MODIFICADO]
-         * BANCO DE DADOS EM JAVASCRIPT COM localStorage
-         */
-        
-        // 1. Define os dados padrão
-        let rideData = [
+        // --- VARIÁVEIS GLOBAIS ---
+        let currentViewingRideId = null; // Armazena o ID da carona que está sendo vista
+        let dbRides = []; // Banco de dados principal de caronas disponíveis
+        let dbBooked = []; // Banco de dados de caronas reservadas pelo usuário
+
+        // --- BANCO DE DADOS PADRÃO ---
+        // (Usado apenas se o localStorage estiver vazio)
+        const defaultRideData = [
             {
-                id: 'page-details',
+                id: 'r1',
                 title: 'Centro (Lavras) → Biblioteca (UFLA)',
                 description: 'Saída: Centro - Chegada: Campus',
+                origin: 'Centro (Lavras)',
+                destination: 'Biblioteca (UFLA)',
                 date: '2025-11-09',
                 time: '17:30',
-                seats: 0,
-                status: 'booked',
-                image: 'download (1).jpeg',
-                driver: 'Ana Paula'
+                seats: 2,
+                status: 'available',
+                image: 'mapa-1.png',
+                driver: {
+                    name: 'Ana Paula',
+                    avatar: 'pexels-photo-733872.webp',
+                    rating: '4.9',
+                    rides: 18,
+                    bio: 'Gosto de ouvir música pop no caminho. Carro limpo e com ar-condicionado.'
+                }
             },
             {
-                id: 'page-details-2',
+                id: 'r2',
                 title: 'Cantina (UFLA) → Centro (Lavras)',
                 description: 'Saída: Campus - Chegada: Centro',
-                date: '2025-11-10',
+                origin: 'Cantina (UFLA)',
+                destination: 'Centro (Lavras)',
+                date: '2025-11-10', // Data de hoje
                 time: '12:30',
                 seats: 1,
                 status: 'available',
                 image: 'centro-lavras.webp',
-                driver: 'Carlos M.'
+                driver: {
+                    name: 'Carlos M.',
+                    avatar: 'images (10).jpeg',
+                    rating: '4.7',
+                    rides: 5,
+                    bio: 'Gosto de fazer o trajeto em silêncio.'
+                }
             },
             {
-                id: 'page-details',
+                id: 'r3',
                 title: 'Portaria (UFLA) → Rodoviária (Lavras)',
                 description: 'Saída: Campus - Chegada: Rodoviária',
-                date: '2025-11-10',
+                origin: 'Portaria (UFLA)',
+                destination: 'Rodoviária (Lavras)',
+                date: '2025-11-10', // Data de hoje
                 time: '08:00',
                 seats: 3,
                 status: 'available',
                 image: 'https://placehold.co/120x80/cffafe/0891b2?text=Sem foto',
-                driver: 'Mariana L.'
+                driver: {
+                    name: 'Mariana L.',
+                    avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=ML',
+                    rating: '4.8',
+                    rides: 12,
+                    bio: 'Trajeto rápido. Sem paradas.'
+                }
             },
             {
-                id: 'page-details-2',
+                id: 'r4',
                 title: 'Centro (Lavras) → Cantina (UFLA)',
                 description: 'Saída: Centro - Chegada: Campus',
-                date: '2025-11-11',
+                origin: 'Centro (Lavras)',
+                destination: 'Cantina (UFLA)',
+                date: '2025-11-11', // Amanhã
                 time: '18:15',
                 seats: 2,
                 status: 'available',
                 image: 'https://placehold.co/120x80/a5f3fc/0891b2?text=Sem foto',
-                driver: 'Lucas F.'
+                driver: {
+                    name: 'Lucas F.',
+                    avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=LF',
+                    rating: '4.6',
+                    rides: 7,
+                    bio: 'Podemos rachar um som!'
+                }
+            },
+            // Carona de exemplo no passado para o histórico
+            {
+                id: 'r5_past',
+                title: 'UFLA → Centro (Lavras)',
+                description: 'Viagem passada',
+                origin: 'UFLA',
+                destination: 'Centro (Lavras)',
+                date: '2025-11-08', // Data passada
+                time: '14:00',
+                seats: 0,
+                status: 'completed',
+                image: 'https://placehold.co/120x80/a5f3fc/0891b2?text=MAP',
+                driver: {
+                    name: 'Angela Barrera',
+                    avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=AB',
+                    rating: '4.9',
+                    rides: 22,
+                    bio: 'Pontual e segura.'
+                }
             }
         ];
+        
+        // --- 1. INICIALIZAÇÃO E BANCO DE DADOS (localStorage) ---
 
-        // 2. Tenta carregar os dados salvos do localStorage
-        const savedRides = localStorage.getItem('vaicomigo_rideData');
-        if (savedRides) {
-            rideData = JSON.parse(savedRides); // Sobrescreve o padrão se houver dados salvos
+        /**
+         * Salva ambos os bancos de dados no localStorage
+         */
+        function saveDatabases() {
+            localStorage.setItem('vaicomigo_rideData', JSON.stringify(dbRides));
+            localStorage.setItem('vaicomigo_bookedRides', JSON.stringify(dbBooked));
         }
 
-        // --- FUNÇÕES DE NAVEGAÇÃO E LÓGICA ---
+        /**
+         * Carrega os bancos de dados do localStorage ou usa o padrão
+         */
+        function loadDatabases() {
+            const savedRides = localStorage.getItem('vaicomigo_rideData');
+            const savedBooked = localStorage.getItem('vaicomigo_bookedRides');
+
+            if (savedRides) {
+                dbRides = JSON.parse(savedRides);
+            } else {
+                dbRides = defaultRideData; // Carrega o padrão
+            }
+
+            if (savedBooked) {
+                dbBooked = JSON.parse(savedBooked);
+            } else {
+                // Adiciona uma carona passada e uma futura ao histórico por padrão
+                const rideToBookPast = dbRides.pop(); // Remove r5_past
+                const rideToBookFuture = dbRides.shift(); // Remove r1
+                
+                rideToBookPast.status = 'completed';
+                rideToBookFuture.status = 'booked';
+
+                dbBooked = [rideToBookPast, rideToBookFuture];
+            }
+            
+            saveDatabases(); // Salva o estado inicial (importante)
+        }
         
         /**
-         * [MODIFICADO]
-         * Pega os dados do formulário, cria uma nova carona E SALVA NO LOCALSTORAGE.
+         * Carrega os dados do perfil (nome, bio, etc.)
+         */
+        function loadProfileData() {
+            const savedName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
+            const savedCourse = localStorage.getItem('vaicomigo_profileCourse') || "BICT - UFLA";
+            const savedBio = localStorage.getItem('vaicomigo_profileBio') || "";
+
+            document.getElementById('profile-display-name').innerText = savedName;
+            document.getElementById('profile-display-course').innerText = savedCourse;
+            
+            const displayBio = document.getElementById('profile-display-bio');
+            if (savedBio && savedBio.trim() !== "") {
+                displayBio.innerText = `"${savedBio}"`;
+                displayBio.classList.remove('italic', 'text-gray-500'); 
+                displayBio.classList.add('text-gray-700');
+            } else {
+                displayBio.innerText = "Edite seu perfil para adicionar uma bio.";
+                displayBio.classList.add('italic', 'text-gray-500');
+                displayBio.classList.remove('text-gray-700');
+            }
+            
+            // Pré-popula o formulário de edição
+            document.getElementById('edit-name').value = savedName;
+            document.getElementById('edit-course').value = savedCourse;
+            document.getElementById('edit-bio').value = savedBio;
+        }
+
+        // --- 2. LÓGICA DE NAVEGAÇÃO E RENDERIZAÇÃO ---
+
+        /**
+         * Controla a exibição das "páginas" (seções)
+         */
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            const pageToShow = document.getElementById(pageId);
+            if (pageToShow) {
+                pageToShow.style.display = 'block';
+            } else {
+                document.getElementById('page-home').style.display = 'block';
+                pageId = 'page-home';
+            }
+
+            // Atualiza os links ativos no header
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-link');
+            });
+
+            let activeBtn;
+            switch(pageId) {
+                case 'page-home':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
+                    break;
+                case 'page-select':
+                case 'page-details':
+                case 'page-confirm':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-select\')"]');
+                    break;
+                case 'page-offer':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-offer\')"]');
+                    break;
+                case 'page-profile':
+                case 'page-edit-profile': 
+                case 'page-history':
+                case 'page-evaluate':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-profile\')"]');
+                    break;
+                case 'page-chat':
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-chat\')"]');
+                    break;
+                default:
+                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
+            }
+            if (activeBtn) activeBtn.classList.add('active-link');
+
+            // --- Lógica Específica da Página ---
+            
+            // Barra inferior só aparece na home e na busca
+            const agendadasBar = document.getElementById('agendadas-bottom-bar');
+            if (pageId === 'page-home' || pageId === 'page-select') {
+                agendadasBar.classList.remove('hidden');
+                renderBottomBar(); // Atualiza a barra
+            } else {
+                agendadasBar.classList.add('hidden');
+            }
+            
+            // Renderiza listas dinâmicas ao visitar as páginas
+            if (pageId === 'page-select') applyFilters();
+            if (pageId === 'page-history') renderHistoryPage();
+            if (pageId === 'page-evaluate') handleStarRating(0);
+        }
+
+        /**
+         * Navegador principal. Usado pela maioria dos botões.
+         */
+        function navigateTo(pageId) {
+            currentViewingRideId = null; // Reseta o ID ao navegar
+            window.scrollTo(0, 0);
+            history.pushState({ page: pageId }, '', '#' + pageId);
+            showPage(pageId);
+        }
+
+        /**
+         * Navegação especial para a página de detalhes da carona
+         */
+        function navigateToRideDetail(rideId, isBookedRide = false) {
+            // Encontra a carona em qualquer um dos bancos de dados
+            let ride = dbRides.find(r => r.id === rideId);
+            let rideIsFromBookedList = false;
+            
+            if (!ride) {
+                ride = dbBooked.find(r => r.id === rideId);
+                rideIsFromBookedList = true;
+            }
+
+            if (!ride) {
+                alert('Erro: Carona não encontrada.');
+                return;
+            }
+
+            currentViewingRideId = rideId; // Armazena o ID que estamos vendo
+
+            // Preenche o template 'page-details' com os dados da carona
+            document.getElementById('detail-map-image').src = ride.image;
+            document.getElementById('detail-map-link').href = `http://googleusercontent.com/maps.google.com/${ride.id}`;
+            
+            document.getElementById('detail-driver-avatar').src = ride.driver.avatar;
+            document.getElementById('detail-driver-name').innerText = ride.driver.name;
+            document.getElementById('detail-driver-rating').innerHTML = `Avaliação: <span class="font-bold text-yellow-500">${ride.driver.rating}</span> (${ride.driver.rides} caronas)`;
+            document.getElementById('detail-driver-bio').innerText = `"${ride.driver.bio}"`;
+
+            document.getElementById('detail-origin').innerText = ride.origin;
+            document.getElementById('detail-destination').innerText = ride.destination;
+            document.getElementById('detail-time').innerText = `${getRelativeDate(ride.date)}, ${ride.time}`;
+
+            // Controla quais botões aparecem
+            const actionsConfirm = document.getElementById('details-actions-confirm');
+            const actionsConfirmed = document.getElementById('details-actions-confirmed');
+
+            if (rideIsFromBookedList) {
+                actionsConfirm.style.display = 'none'; // Esconde "Confirmar"
+                actionsConfirmed.style.display = 'block'; // Mostra "Agendada"
+            } else {
+                actionsConfirm.style.display = 'block'; // Mostra "Confirmar"
+                actionsConfirmed.style.display = 'none'; // Esconde "Agendada"
+            }
+
+            // Navega para a página de detalhes
+            window.scrollTo(0, 0);
+            history.pushState({ page: 'page-details' }, '', '#page-details');
+            showPage('page-details');
+        }
+
+        // --- 3. FUNCIONALIDADES PRINCIPAIS (Reservar, Cancelar, Oferecer) ---
+
+        /**
+         * Chamada ao clicar em "Confirmar Carona"
+         */
+        function reservarCarona() {
+            if (!currentViewingRideId) {
+                alert('Erro: ID da carona não encontrado.');
+                return;
+            }
+            
+            // Encontra o índice da carona no banco de dados de disponíveis
+            const rideIndex = dbRides.findIndex(r => r.id === currentViewingRideId);
+            if (rideIndex === -1) {
+                alert('Erro: Carona não está mais disponível.');
+                return;
+            }
+
+            // Remove a carona de dbRides
+            const [bookedRide] = dbRides.splice(rideIndex, 1);
+            
+            // Adiciona ao dbBooked
+            bookedRide.status = 'booked';
+            dbBooked.push(bookedRide);
+
+            // Salva as mudanças
+            saveDatabases();
+
+            // Reseta o ID e navega para a página de confirmação
+            currentViewingRideId = null;
+            navigateTo('page-confirm');
+        }
+
+        /**
+         * Chamada ao clicar em "Cancelar Carona" no histórico
+         */
+        function cancelarCarona(rideId) {
+            if (!confirm('Você tem certeza que deseja cancelar esta carona?')) {
+                return;
+            }
+
+            // Encontra o índice da carona no banco de dados de RESERVADAS
+            const rideIndex = dbBooked.findIndex(r => r.id === rideId);
+            if (rideIndex === -1) {
+                alert('Erro: Carona não encontrada na sua lista.');
+                return;
+            }
+
+            // Remove a carona de dbBooked
+            const [cancelledRide] = dbBooked.splice(rideIndex, 1);
+            
+            // Devolve ela para dbRides
+            cancelledRide.status = 'available';
+            dbRides.push(cancelledRide);
+
+            // Salva as mudanças
+            saveDatabases();
+
+            alert('Carona cancelada com sucesso.');
+            
+            // Re-renderiza a página de histórico para mostrar a mudança
+            renderHistoryPage();
+        }
+        
+        /**
+         * Publica uma nova carona
          */
         function submitNewRide() {
             const from = document.getElementById('offer-from').value;
@@ -897,23 +1147,32 @@
                 return;
             }
 
+            const profileName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
+            
             const newRide = {
-                id: 'page-details-2',
+                id: 'r' + new Date().getTime(), // ID único baseado no tempo
                 title: `${from} → ${to}`,
                 description: `Saída: ${from} - Chegada: ${to}` + (info ? ` (${info})` : ''),
+                origin: from,
+                destination: to,
                 date: date,
                 time: time,
                 seats: seats,
                 status: 'available',
                 image: 'https://placehold.co/120x80/cffafe/0891b2?text=NOVA',
-                driver: 'Sabrina Santos (Você)'
+                driver: { // Você é o motorista
+                    name: profileName + ' (Você)',
+                    avatar: 'perfil-sabrina.png',
+                    rating: 'Novo',
+                    rides: 0,
+                    bio: info || 'Carona recém-publicada.'
+                }
             };
             
-            rideData.unshift(newRide);
+            dbRides.unshift(newRide); // Adiciona no início da lista
+            saveDatabases();
 
-            // [NOVO] Salva o array de caronas atualizado no localStorage
-            localStorage.setItem('vaicomigo_rideData', JSON.stringify(rideData));
-
+            // Limpa o formulário
             document.getElementById('offer-from').value = '';
             document.getElementById('offer-to').value = '';
             document.getElementById('offer-date').value = '';
@@ -922,14 +1181,19 @@
             document.getElementById('offer-seats').value = '2';
 
             alert('Carona publicada com sucesso!');
-            navigateTo('page-select');
+            navigateTo('page-history'); // Navega para o histórico para ver a carona
         }
 
+        // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA ---
+
+        /**
+         * Desenha a lista de caronas disponíveis em 'page-select'
+         */
         function renderRides(ridesToRender) {
             const container = document.getElementById('ride-list-container');
             if (!container) return;
             
-            container.innerHTML = '';
+            container.innerHTML = ''; // Limpa a lista
 
             if (ridesToRender.length === 0) {
                 container.innerHTML = `<p class="text-gray-600 text-center p-4 bg-white rounded-lg shadow-sm">Nenhuma carona encontrada com esses filtros.</p>`;
@@ -937,53 +1201,178 @@
             }
 
             ridesToRender.forEach(ride => {
+                // Não mostra caronas que são do próprio usuário na busca
+                if (ride.driver.name.includes('(Você)')) {
+                    return;
+                }
+                
                 let html = '';
                 const dateText = getRelativeDate(ride.date); 
                 const vagasText = ride.seats > 0 ? `${ride.seats} vaga${ride.seats > 1 ? 's' : ''}` : 'Lotado';
                 const vagasClass = ride.seats > 0 ? 'text-orange-600' : 'text-red-600';
 
-                if (ride.status === 'booked' || ride.seats === 0) {
-                    html = `
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 opacity-70 cursor-not-allowed">
-                        <img src="${ride.image}" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
-                        <div class="flex-grow">
-                            <h4 class="font-bold text-lg text-gray-500 line-through">${ride.title}</h4>
-                            <p class="text-sm text-gray-600">${ride.description}</p>
-                        </div>
-                        <div class="text-sm text-gray-600 text-right">
-                            <p>${dateText}, ${ride.time}</p>
-                            <p class="font-bold text-green-600">CARONA JÁ AGENDADA</p>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-gray-400">Indisponível</span>
-                        </div>
-                    </div>`;
-                } else {
-                     html = `
-                    <div class="bg-cyan-50 p-4 rounded-lg border border-cyan-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" onclick="navigateTo('${ride.id}')">
-                        <img src="${ride.image}" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/cffafe/0891b2?text=MAP'; this.onerror=null;">
-                        <div class="flex-grow">
-                            <h4 class="font-bold text-lg text-cyan-800">${ride.title}</h4>
-                            <p class="text-sm text-gray-600">${ride.description}</p>
-                        </div>
-                        <div class="text-sm text-gray-600 text-right">
-                            <p>${dateText}, ${ride.time}</p>
-                            <p class="font-medium ${vagasClass}">${vagasText}</p>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-gray-600 hover:text-cyan-700">Ver Detalhes →</span>
-                        </div>
-                    </div>`;
-                }
+                // NOTE O ONCLICK: chama navigateToRideDetail com o ID da carona
+                html = `
+                <div class="bg-cyan-50 p-4 rounded-lg border border-cyan-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 cursor-pointer" 
+                     onclick="navigateToRideDetail('${ride.id}')">
+                    <img src="${ride.image}" class="w-full md:w-32 h-32 md:h-20 object-cover rounded-lg" onerror="this.src='https://placehold.co/120x80/cffafe/0891b2?text=MAP'; this.onerror=null;">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-lg text-cyan-800">${ride.title}</h4>
+                        <p class="text-sm text-gray-600">Motorista: <span class="font-medium">${ride.driver.name}</span></p>
+                    </div>
+                    <div class="text-sm text-gray-600 text-right">
+                        <p>${dateText}, ${ride.time}</p>
+                        <p class="font-medium ${vagasClass}">${vagasText}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-gray-600 hover:text-cyan-700">Ver Detalhes →</span>
+                    </div>
+                </div>`;
+                
                 container.innerHTML += html;
             });
         }
         
+        /**
+         * Desenha a página de histórico dinamicamente
+         */
+        function renderHistoryPage() {
+            const profileName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Zera o horário para comparar só as datas
+
+            // Containers de destino
+            const upPassContainer = document.getElementById('upcoming-passenger-rides');
+            const pastPassContainer = document.getElementById('past-passenger-rides');
+            const upDriverContainer = document.getElementById('upcoming-driver-rides');
+            const pastDriverContainer = document.getElementById('past-driver-rides');
+
+            // Limpa containers
+            upPassContainer.innerHTML = '';
+            pastPassContainer.innerHTML = '';
+            upDriverContainer.innerHTML = '';
+            pastDriverContainer.innerHTML = '';
+
+            let upPassCount = 0, pastPassCount = 0, upDriverCount = 0, pastDriverCount = 0;
+            
+            // 1. Processa Caronas Reservadas (Passageiro)
+            dbBooked.forEach(ride => {
+                const rideDate = new Date(ride.date);
+                const dateText = `${getRelativeDate(ride.date)}, ${ride.time}`;
+
+                if (rideDate >= today) { // Próximas viagens
+                    upPassCount++;
+                    upPassContainer.innerHTML += `
+                    <div class="ride-history-item bg-cyan-50 p-4 rounded-lg border border-cyan-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${ride.title} | Com ${ride.driver.name}</h4>
+                            <p class="text-sm text-gray-600">${dateText}</p>
+                        </div>
+                        <button onclick="cancelarCarona('${ride.id}')" class="text-sm font-medium text-red-800 bg-red-200 hover:bg-red-300 px-3 py-1 rounded-full transition-colors w-full sm:w-auto">
+                            Cancelar Carona
+                        </button>
+                    </div>`;
+                } else { // Viagens passadas
+                    pastPassCount++;
+                    pastPassContainer.innerHTML += `
+                    <div class="ride-history-item bg-yellow-50 p-4 rounded-lg border border-yellow-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${ride.title} | Com ${ride.driver.name}</h4>
+                            <p class="text-sm text-gray-600">${dateText}</p>
+                        </div>
+                        <button onclick="navigateTo('page-evaluate')" class="text-sm font-medium text-yellow-800 bg-yellow-200 hover:bg-yellow-300 px-3 py-1 rounded-full transition-colors w-full sm:w-auto">
+                            Avaliar
+                        </button>
+                    </div>`;
+                }
+            });
+
+            // 2. Processa Caronas Oferecidas (Motorista)
+            // Filtra de dbRides (disponíveis) e dbBooked (passageiros já agendaram)
+            const allRides = dbRides.concat(dbBooked);
+            const offeredRides = allRides.filter(r => r.driver.name.includes(profileName));
+
+            offeredRides.forEach(ride => {
+                const rideDate = new Date(ride.date);
+                const dateText = `${getRelativeDate(ride.date)}, ${ride.time}`;
+                const passageiros = ride.status === 'booked' ? '1 passageiro' : 'Aguardando passageiros'; // Lógica simples
+
+                if (rideDate >= today) { // Próximas oferecidas
+                    upDriverCount++;
+                    upDriverContainer.innerHTML += `
+                    <div class="ride-history-item bg-blue-50 p-4 rounded-lg border border-blue-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${dateText} • <span class="font-medium">${passageiros}</span></p>
+                        </div>
+                        <button onclick="cancelarCaronaOferecida('${ride.id}')" class="text-sm font-medium text-red-800 bg-red-200 hover:bg-red-300 px-3 py-1 rounded-full transition-colors w-full sm:w-auto">
+                            Cancelar Carona
+                        </button>
+                    </div>`;
+                } else { // Passadas oferecidas
+                    pastDriverCount++;
+                    pastDriverContainer.innerHTML += `
+                    <div class="ride-history-item bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${ride.title}</h4>
+                            <p class="text-sm text-gray-600">${dateText}</p>
+                        </div>
+                        <span class="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">Concluída</span>
+                    </div>`;
+                }
+            });
+
+            // Mensagens de "vazio"
+            if (upPassCount === 0) upPassContainer.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhuma carona agendada.</p>';
+            if (pastPassCount === 0) pastPassContainer.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhuma carona no histórico.</p>';
+            if (upDriverCount === 0) upDriverContainer.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhuma carona oferecida agendada.</p>';
+            if (pastDriverCount === 0) pastDriverContainer.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhuma carona oferecida no histórico.</p>';
+        }
+
+        // Função placeholder para cancelar uma carona OFERECIDA
+        function cancelarCaronaOferecida(rideId) {
+            alert('Função para cancelar uma carona que VOCÊ ofereceu.\n(Lógica similar à `cancelarCarona`, mas remove de dbRides ou dbBooked e notifica passageiros).');
+            // Implementação completa seria mais complexa (ex: achar em dbRides ou dbBooked e remover)
+        }
+        
+        /**
+         * Renderiza a barra inferior de caronas agendadas
+         */
+        function renderBottomBar() {
+            const container = document.getElementById('bottom-bar-content');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const upcomingBookedRides = dbBooked.filter(ride => new Date(ride.date) >= today);
+
+            if (upcomingBookedRides.length === 0) {
+                container.innerHTML = '<p class="text-sm text-gray-500">Nenhuma carona agendada no momento.</p>';
+                return;
+            }
+            
+            // Pega a carona mais próxima
+            const nextRide = upcomingBookedRides.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+            
+            container.innerHTML = `
+            <div class="flex items-center space-x-2 bg-cyan-50 p-2 rounded-lg border border-cyan-200 cursor-pointer hover:bg-cyan-100" 
+                 onclick="navigateToRideDetail('${nextRide.id}', true)">
+                <img src="${nextRide.driver.avatar}" alt="Motorista" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://placehold.co/30x30/a5f3fc/0891b2?text=...'; this.onerror=null;">
+                <p class="text-sm text-gray-700">${nextRide.title} com <span class="font-semibold">${nextRide.driver.name}</span></p>
+                <span class="text-sm font-bold text-cyan-700">${getRelativeDate(nextRide.date)}, ${nextRide.time}</span>
+            </div>`;
+        }
+
+        // --- 5. FUNÇÕES AUXILIARES E INICIALIZAÇÃO ---
+
+        /**
+         * Converte uma data (ex: '2025-11-10') em "Hoje", "Amanhã" ou "10/11"
+         */
         function getRelativeDate(dateString) {
             const today = new Date();
             const tomorrow = new Date();
             tomorrow.setDate(today.getDate() + 1);
 
+            // Corrige o fuso horário (importante para comparação de datas)
             const [year, month, day] = dateString.split('-').map(Number);
             const rideDate = new Date(year, month - 1, day); 
 
@@ -996,7 +1385,10 @@
             
             return rideDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
         }
-
+        
+        /**
+         * Aplica os filtros da 'page-select'
+         */
         function applyFilters() {
             const searchText = document.getElementById('search-text-input').value.toLowerCase();
             const filterDate = document.getElementById('filter-date').value;
@@ -1009,7 +1401,7 @@
             if (document.getElementById('filter-vagas-2').checked) minSeats = 1;
             if (document.getElementById('filter-vagas-3').checked) minSeats = 2;
 
-            let filteredRides = rideData.filter(ride => {
+            let filteredRides = dbRides.filter(ride => {
                 
                 if (searchText && 
                     !ride.title.toLowerCase().includes(searchText) && 
@@ -1021,8 +1413,7 @@
                     return false;
                 }
 
-                const effectiveSeats = ride.status === 'booked' ? 0 : ride.seats;
-                if (effectiveSeats < minSeats) {
+                if (ride.seats < minSeats) {
                     return false;
                 }
                 
@@ -1049,218 +1440,30 @@
         }
 
         function navigateToSearch(searchTerm) {
-            const searchInput = document.getElementById('search-text-input');
-            if (searchInput) {
-                searchInput.value = searchTerm;
-            }
+            document.getElementById('search-text-input').value = searchTerm;
             navigateTo('page-select');
         }
 
-        /**
-         * [NOVA FUNÇÃO]
-         * Carrega os dados do perfil salvos no localStorage.
-         * Chamada quando a página é carregada pela primeira vez.
-         */
-        function loadProfileDataFromStorage() {
-            const savedName = localStorage.getItem('vaicomigo_profileName');
-            const savedCourse = localStorage.getItem('vaicomigo_profileCourse');
-            const savedBio = localStorage.getItem('vaicomigo_profileBio');
-
-            if (savedName) {
-                document.getElementById('profile-display-name').innerText = savedName;
-            }
-            if (savedCourse) {
-                document.getElementById('profile-display-course').innerText = savedCourse;
-            }
-            if (savedBio && savedBio.trim() !== "") {
-                const displayBio = document.getElementById('profile-display-bio');
-                displayBio.innerText = `"${savedBio}"`;
-                displayBio.classList.remove('italic', 'text-gray-500'); 
-                displayBio.classList.add('text-gray-700');
-            }
-        }
-
-
-        /**
-         * [MODIFICADO]
-         * Salva as alterações do formulário de perfil E SALVA NO LOCALSTORAGE.
-         */
         function saveProfileChanges() {
-            // 1. Obter valores do formulário de edição
             const newName = document.getElementById('edit-name').value;
             const newCourse = document.getElementById('edit-course').value;
             const newBio = document.getElementById('edit-bio').value; 
 
-            // 2. Validar
             if (!newName || !newCourse) {
                 alert('Nome e Curso não podem ficar em branco.');
                 return;
             }
-
-            // 3. Atualizar os elementos na página de perfil
-            const displayName = document.getElementById('profile-display-name');
-            const displayCourse = document.getElementById('profile-display-course');
-            const displayBio = document.getElementById('profile-display-bio');
-
-            displayName.innerText = newName;
-            displayCourse.innerText = newCourse;
             
-            if (newBio && newBio.trim() !== "") {
-                displayBio.innerText = `"${newBio}"`;
-                displayBio.classList.remove('italic', 'text-gray-500'); 
-                displayBio.classList.add('text-gray-700');
-            } else {
-                displayBio.innerText = "Edite seu perfil para adicionar uma bio.";
-                displayBio.classList.add('italic', 'text-gray-500');
-                displayBio.classList.remove('text-gray-700');
-            }
-            
-            // [NOVO] 4. Salvar os novos dados no localStorage
             localStorage.setItem('vaicomigo_profileName', newName);
             localStorage.setItem('vaicomigo_profileCourse', newCourse);
             localStorage.setItem('vaicomigo_profileBio', newBio);
 
-            // 5. Dar feedback e navegar de volta
             alert('Perfil atualizado com sucesso!');
+            loadProfileData(); // Recarrega os dados no perfil
             navigateTo('page-profile');
         }
 
-        function showPage(pageId, context) {
-            document.querySelectorAll('.page-section').forEach(function(section) {
-                section.style.display = 'none';
-            });
-            
-            const pageToShow = document.getElementById(pageId);
-            if (pageToShow) {
-                pageToShow.style.display = 'block';
-            } else {
-                document.getElementById('page-home').style.display = 'block';
-                pageId = 'page-home';
-            }
-
-            if (pageId === 'page-select') {
-                applyFilters();
-            }
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active-link');
-            });
-
-            let activeBtn;
-            switch(pageId) {
-                case 'page-home':
-                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
-                    break;
-                case 'page-select':
-                case 'page-details':
-                case 'page-details-2':
-                case 'page-confirm':
-                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-select\')"]');
-                    break;
-                case 'page-offer':
-                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-offer\')"]');
-                    break;
-                case 'page-profile':
-                case 'page-edit-profile': 
-                case 'page-history':
-                case 'page-evaluate':
-                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-profile\')"]');
-                    break;
-                default:
-                    activeBtn = document.querySelector('button[onclick="navigateTo(\'page-home\')"]');
-            }
-            if (activeBtn) {
-                activeBtn.classList.add('active-link');
-            }
-
-            if (pageId === 'page-details') {
-                const actionsConfirm = document.getElementById('details-actions-confirm');
-                const actionsConfirmed = document.getElementById('details-actions-confirmed');
-                
-                if (context === 'confirmed') {
-                    actionsConfirm.style.display = 'none';
-                    actionsConfirmed.style.display = 'block';
-                } else {
-                    actionsConfirm.style.display = 'block';
-                    actionsConfirmed.style.display = 'none';
-                }
-            }
-            
-            const agendadasBar = document.getElementById('agendadas-bottom-bar');
-            if (pageId === 'page-home' || pageId === 'page-select') {
-                agendadasBar.classList.remove('hidden');
-            } else {
-                agendadasBar.classList.add('hidden');
-            }
-
-            if (pageId === 'page-history') {
-                filterHistory('todas');
-            }
-
-            if (pageId === 'page-evaluate') {
-                handleStarRating(0);
-            }
-        }
-
-        function navigateTo(pageId, context = null) {
-            window.scrollTo(0, 0);
-            const state = { page: pageId, context: context };
-            history.pushState(state, '', '#' + pageId);
-            showPage(pageId, context);
-        }
-
-        window.onpopstate = function(event) {
-            if (event.state) {
-                showPage(event.state.page, event.state.context);
-            } else {
-                showPage('page-home');
-            }
-        };
-
-        /**
-         * [MODIFICADO]
-         * Lida com o carregamento inicial da página.
-         */
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // [NOVO] Carrega dados do perfil (nome, curso, bio) do localStorage
-            loadProfileDataFromStorage(); 
-
-            let initialPage = 'page-home';
-            let initialContext = null;
-
-            if (location.hash) {
-                const hashPage = location.hash.substring(1);
-                if (document.getElementById(hashPage)) {
-                    initialPage = hashPage;
-                }
-            }
-
-            // [MODIFICADO] Pré-popula o formulário de edição com os dados JÁ ATUALIZADOS do perfil
-            const currentName = document.getElementById('profile-display-name').innerText;
-            const currentCourse = document.getElementById('profile-display-course').innerText;
-            const currentBioElem = document.getElementById('profile-display-bio');
-            
-            document.getElementById('edit-name').value = currentName;
-            document.getElementById('edit-course').value = currentCourse;
-
-            // Pré-popula a bio, removendo as aspas e o placeholder
-            if (currentBioElem) {
-                const currentBioText = currentBioElem.innerText;
-                if (currentBioText !== "Edite seu perfil para adicionar uma bio.") {
-                    // Remove as aspas do início e do fim
-                    document.getElementById('edit-bio').value = currentBioText.substring(1, currentBioText.length - 1);
-                } else {
-                    document.getElementById('edit-bio').value = ""; // Deixa o campo vazio
-                }
-            }
-
-            showPage(initialPage, initialContext);
-            history.replaceState({ page: initialPage, context: initialContext }, '', '#' + initialPage);
-        });
-
-        
-        // --- DEMAIS FUNÇÕES (SEM MUDANÇAS DE LÓGICA) ---
+        // --- Funções Auxiliares (sem mudanças) ---
 
         function showUnderConstruction() {
             alert('Em breve!\n\nEsta funcionalidade para outras universidades ainda está em construção. Por enquanto, a plataforma está focada na UFLA.');
@@ -1344,6 +1547,38 @@
 
             navigateTo('page-history');
         }
+
+        // --- INICIALIZAÇÃO DA APLICAÇÃO ---
+
+        /**
+         * Lida com o carregamento inicial da página e navegação por hash
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDatabases();
+            loadProfileData(); 
+
+            let initialPage = 'page-home';
+            if (location.hash) {
+                const hashPage = location.hash.substring(1);
+                if (document.getElementById(hashPage)) {
+                    initialPage = hashPage;
+                }
+            }
+
+            showPage(initialPage);
+            history.replaceState({ page: initialPage }, '', '#' + initialPage);
+        });
+
+        /**
+         * Lida com os botões "Voltar" e "Avançar" do navegador
+         */
+        window.onpopstate = function(event) {
+            if (event.state && event.state.page) {
+                showPage(event.state.page);
+            } else {
+                showPage('page-home');
+            }
+        };
     </script>
 
 </body>
