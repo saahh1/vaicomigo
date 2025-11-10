@@ -140,24 +140,8 @@
                             <h3 class="text-xl font-bold text-dark-gray">Caronas próximas a você</h3>
                             <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-select'); return false;">Ver todas →</a>
                         </div>
-                        <div class="space-y-4">
-                            
-                            <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-not-allowed">
-                                <img src="download (1).jpeg" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
-                                <div>
-                                    <h4 class="font-bold text-gray-500 line-through">Lavras (Centro) → Biblioteca (UFLA)</h4>
-                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA</p>
-                                </div>
+                        <div id="home-ride-list" class="space-y-4">
                             </div>
-                            
-                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" onclick="navigateToRideDetail('r2')">
-                                <img src="centro-lavras.webp" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
-                                <div>
-                                    <h4 class="font-bold text-cyan-900">Cantina (UFLA) → Centro (Lavras)</h4>
-                                    <p class="text-sm text-gray-600">Hoje, 12:30 • 1 vaga</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
@@ -767,13 +751,14 @@
 
     <script>
         // --- VARIÁVEIS GLOBAIS ---
-        let currentViewingRideId = null; // Armazena o ID da carona que está sendo vista
-        let dbRides = []; // Banco de dados principal de caronas disponíveis
-        let dbBooked = []; // Banco de dados de caronas reservadas pelo usuário
+        let currentViewingRideId = null; 
+        let dbRides = []; 
+        let dbBooked = []; 
 
         // --- BANCO DE DADOS PADRÃO ---
         
         // [CORREÇÃO] Caronas disponíveis para reserva
+        // Datas definidas como hoje (2025-11-10) ou amanhã (2025-11-11)
         const defaultRideData = [
             {
                 id: 'r1',
@@ -884,11 +869,9 @@
             if (savedBooked) {
                 dbBooked = JSON.parse(savedBooked);
             } else {
-                // [CORREÇÃO] Inicia a lista de caronas reservadas vazia por padrão
-                dbBooked = []; 
+                dbBooked = []; // Inicia vazio
             }
             
-            // Primeira vez que roda, salva o estado inicial
             if (!savedRides && !savedBooked) {
                 saveDatabases();
             }
@@ -969,13 +952,15 @@
             const agendadasBar = document.getElementById('agendadas-bottom-bar');
             if (pageId === 'page-home' || pageId === 'page-select') {
                 agendadasBar.classList.remove('hidden');
-                renderBottomBar(); // Atualiza a barra
+                renderBottomBar(); 
             } else {
                 agendadasBar.classList.add('hidden');
             }
             
+            // [NOVO] Renderiza a lista da home
+            if (pageId === 'page-home') renderHomeRides(); 
             if (pageId === 'page-select') applyFilters();
-            if (pageId === 'page-history') renderHistoryPage(); // Renderiza o histórico ao visitar
+            if (pageId === 'page-history') renderHistoryPage(); 
             if (pageId === 'page-evaluate') handleStarRating(0);
         }
 
@@ -1040,7 +1025,6 @@
             
             const rideIndex = dbRides.findIndex(r => r.id === currentViewingRideId);
             if (rideIndex === -1) {
-                // Verifica se já foi reservada (está em dbBooked)
                 if (dbBooked.find(r => r.id === currentViewingRideId)) {
                     alert('Erro: Você já reservou esta carona.');
                 } else {
@@ -1080,7 +1064,7 @@
 
             alert('Carona cancelada com sucesso.');
             
-            renderHistoryPage(); // Re-renderiza a página de histórico
+            renderHistoryPage(); 
         }
         
         function submitNewRide() {
@@ -1134,6 +1118,64 @@
 
         // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA (COM CORREÇÕES) ---
 
+        /**
+         * [NOVA FUNÇÃO]
+         * Desenha a lista de caronas da página inicial
+         */
+        function renderHomeRides() {
+            const container = document.getElementById('home-ride-list');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // 1. Pega a próxima carona agendada (se houver)
+            const upcomingBooked = dbBooked
+                .filter(ride => {
+                    const [year, month, day] = ride.date.split('-').map(Number);
+                    return new Date(year, month - 1, day) >= today;
+                })
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            if (upcomingBooked.length > 0) {
+                const ride = upcomingBooked[0]; // Pega a mais próxima
+                container.innerHTML += `
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-pointer" onclick="navigateToRideDetail('${ride.id}')">
+                    <img src="${ride.image}" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                    <div>
+                        <h4 class="font-bold text-gray-500 line-through">${ride.title}</h4>
+                        <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA</p>
+                    </div>
+                </div>`;
+            }
+
+            // 2. Pega a próxima carona disponível (que não seja sua)
+            const upcomingAvailable = dbRides
+                .filter(ride => {
+                    const [year, month, day] = ride.date.split('-').map(Number);
+                    return new Date(year, month - 1, day) >= today && !ride.driver.name.includes('(Você)');
+                })
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (upcomingAvailable.length > 0) {
+                const ride = upcomingAvailable[0]; // Pega a mais próxima
+                const vagasText = ride.seats > 0 ? `${ride.seats} vaga${ride.seats > 1 ? 's' : ''}` : 'Lotado';
+                container.innerHTML += `
+                <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" onclick="navigateToRideDetail('${ride.id}')">
+                    <img src="${ride.image}" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                    <div>
+                        <h4 class="font-bold text-cyan-900">${ride.title}</h4>
+                        <p class="text-sm text-gray-600">${getRelativeDate(ride.date)}, ${ride.time} • ${vagasText}</p>
+                    </div>
+                </div>`;
+            }
+            
+            if (container.innerHTML === '') {
+                container.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhuma carona próxima a você no momento.</p>';
+            }
+        }
+
         function renderRides(ridesToRender) {
             const container = document.getElementById('ride-list-container');
             if (!container) return;
@@ -1183,7 +1225,6 @@
         function renderHistoryPage() {
             const profileName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
             
-            // [CORREÇÃO DA DATA] Cria a data de "hoje" zerada para comparação correta
             const today = new Date();
             today.setHours(0, 0, 0, 0); 
 
@@ -1203,7 +1244,6 @@
             dbBooked.forEach(ride => {
                 const dateText = `${getRelativeDate(ride.date)}, ${ride.time}`;
                 
-                // [CORREÇÃO DA DATA] Parse manual da data para evitar fuso horário
                 const [year, month, day] = ride.date.split('-').map(Number);
                 const rideDate = new Date(year, month - 1, day); 
 
@@ -1280,7 +1320,6 @@
                 const dateText = `${getRelativeDate(ride.date)}, ${ride.time}`;
                 const passageiros = ride.status === 'booked' ? '1 passageiro' : 'Aguardando passageiros';
 
-                // [CORREÇÃO DA DATA] Parse manual
                 const [year, month, day] = ride.date.split('-').map(Number);
                 const rideDate = new Date(year, month - 1, day);
 
@@ -1330,7 +1369,6 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            // [CORREÇÃO DA DATA] Filtra usando o parse manual
             const upcomingBookedRides = dbBooked.filter(ride => {
                 const [year, month, day] = ride.date.split('-').map(Number);
                 const rideDate = new Date(year, month - 1, day);
@@ -1370,7 +1408,6 @@
 
             today.setHours(0, 0, 0, 0);
             tomorrow.setHours(0, 0, 0, 0);
-            // rideDate já está com 00:00:00 local
 
             if (rideDate.getTime() === today.getTime()) return 'Hoje';
             if (rideDate.getTime() === tomorrow.getTime()) return 'Amanhã';
