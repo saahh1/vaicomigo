@@ -140,8 +140,26 @@
                             <h3 class="text-xl font-bold text-dark-gray">Caronas próximas a você</h3>
                             <a href="#" class="text-cyan-600 text-sm font-medium hover:underline" onclick="navigateTo('page-select'); return false;">Ver todas →</a>
                         </div>
-                        <div id="home-ride-list" class="space-y-4">
+                        <div id="home-ride-list-static" class="space-y-4">
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-not-allowed">
+                                <img src="download (1).jpeg" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                                <div>
+                                    <h4 class="font-bold text-gray-500 line-through">Lavras (Centro) → Biblioteca (UFLA)</h4>
+                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA (EXEMPLO)</p>
+                                </div>
                             </div>
+                            
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" 
+                                 onclick="navigateToRideDetail('r2')">
+                                <img src="centro-lavras.webp" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
+                                <div>
+                                    <h4 class="font-bold text-cyan-900">Cantina (UFLA) → Centro (Lavras)</h4>
+                                    <p class="text-sm text-gray-600">Hoje, 12:30 • 1 vaga</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 
@@ -755,12 +773,13 @@
     <script>
         // --- VARIÁVEIS GLOBAIS ---
         let currentViewingRideId = null; 
-        let dbRides = []; 
-        let dbBooked = []; 
+        let dbRides = []; // "Banco de dados" de caronas disponíveis (resetado a cada recarga)
+        let dbBooked = []; // "Banco de dados" de caronas reservadas (resetado a cada recarga)
 
         // --- BANCO DE DADOS PADRÃO ---
         
         // [CORREÇÃO] Caronas disponíveis para reserva
+        // Datas definidas como hoje (2025-11-10) ou amanhã (2025-11-11)
         const defaultRideData = [
             {
                 id: 'r1',
@@ -791,7 +810,7 @@
                 time: '12:30',
                 seats: 1,
                 status: 'available',
-                image: 'centro-lavras.webp', // [CORREÇÃO] Imagem original da home
+                image: 'centro-lavras.webp', // Imagem original da home
                 driver: {
                     name: 'Carlos M.',
                     avatar: 'images (10).jpeg',
@@ -840,7 +859,7 @@
             }
         ];
         
-        // [CORREÇÃO] Histórico passado ESTÁTICO que você queria de volta
+        // Histórico passado ESTÁTICO que você queria de volta
         const staticPastHistory = [
             { id: 'h0', title: 'UFLA → Centro (Lavras) | Carona com Angela Barrera', date: 'Dois dias atrás, 14:00', status: 'evaluate' },
             { id: 'h1', title: 'UFLA → Centro (Lavras) | Carona com Jenaina Ribeiro', date: 'Ontem, 18:00', status: 'completed' },
@@ -853,32 +872,9 @@
         
         // --- 1. INICIALIZAÇÃO E BANCO DE DADOS (localStorage) ---
 
-        function saveDatabases() {
-            localStorage.setItem('vaicomigo_rideData', JSON.stringify(dbRides));
-            localStorage.setItem('vaicomigo_bookedRides', JSON.stringify(dbBooked));
-        }
-
-        function loadDatabases() {
-            const savedRides = localStorage.getItem('vaicomigo_rideData');
-            const savedBooked = localStorage.getItem('vaicomigo_bookedRides');
-
-            if (savedRides) {
-                dbRides = JSON.parse(savedRides);
-            } else {
-                dbRides = defaultRideData; 
-            }
-
-            if (savedBooked) {
-                dbBooked = JSON.parse(savedBooked);
-            } else {
-                dbBooked = []; 
-            }
-            
-            if (!savedRides && !savedBooked) {
-                saveDatabases();
-            }
-        }
-        
+        /**
+         * [MUDANÇA] Carrega os dados do Perfil (única coisa salva)
+         */
         function loadProfileData() {
             const savedName = localStorage.getItem('vaicomigo_profileName') || "Sabrina Santos";
             const savedCourse = localStorage.getItem('vaicomigo_profileCourse') || "BICT - UFLA";
@@ -901,6 +897,15 @@
             document.getElementById('edit-name').value = savedName;
             document.getElementById('edit-course').value = savedCourse;
             document.getElementById('edit-bio').value = savedBio;
+        }
+        
+        /**
+         * [MUDANÇA] Reseta o "banco de dados" de caronas para o padrão
+         */
+        function resetDatabases() {
+             // Cria cópias profundas para não alterar o original
+            dbRides = JSON.parse(JSON.stringify(defaultRideData));
+            dbBooked = [];
         }
 
         // --- 2. LÓGICA DE NAVEGAÇÃO E RENDERIZAÇÃO ---
@@ -957,7 +962,7 @@
                 agendadasBar.classList.add('hidden');
             }
             
-            if (pageId === 'page-home') renderHomeRides(); 
+            // if (pageId === 'page-home') renderHomeRides(); // Não é mais necessário, home é estática
             if (pageId === 'page-select') applyFilters();
             if (pageId === 'page-history') renderHistoryPage(); 
             if (pageId === 'page-evaluate') handleStarRating(0);
@@ -1037,7 +1042,8 @@
             bookedRide.status = 'booked';
             dbBooked.push(bookedRide);
 
-            saveDatabases();
+            // [MUDANÇA] Não salva mais no localStorage
+            // saveDatabases();
 
             currentViewingRideId = null;
             navigateTo('page-confirm');
@@ -1057,9 +1063,10 @@
             const [cancelledRide] = dbBooked.splice(rideIndex, 1);
             
             cancelledRide.status = 'available';
-            dbRides.push(cancelledRide);
+            dbRides.push(cancelledRide); // Devolve para a lista de disponíveis
 
-            saveDatabases();
+            // [MUDANÇA] Não salva mais no localStorage
+            // saveDatabases();
 
             alert('Carona cancelada com sucesso.');
             
@@ -1102,7 +1109,8 @@
             };
             
             dbRides.unshift(newRide); 
-            saveDatabases();
+            // [MUDANÇA] Não salva mais no localStorage
+            // saveDatabases();
 
             document.getElementById('offer-from').value = '';
             document.getElementById('offer-to').value = '';
@@ -1149,62 +1157,9 @@
         // --- 4. FUNÇÕES DE RENDERIZAÇÃO DINÂMICA (COM CORREÇÕES) ---
 
         /**
-         * [FUNÇÃO NOVA/CORRIGIDA]
-         * Desenha a lista de caronas da página inicial
+         * [REMOVIDA]
+         * A função renderHomeRides() foi removida pois a home é estática.
          */
-        function renderHomeRides() {
-            const container = document.getElementById('home-ride-list');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            // 1. Pega a próxima carona agendada (se houver)
-            const upcomingBooked = dbBooked
-                .filter(ride => {
-                    const [year, month, day] = ride.date.split('-').map(Number);
-                    return new Date(year, month - 1, day) >= today;
-                })
-                .sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            if (upcomingBooked.length > 0) {
-                const ride = upcomingBooked[0]; // Pega a mais próxima
-                container.innerHTML += `
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 opacity-70 cursor-pointer" onclick="navigateToRideDetail('${ride.id}', true)">
-                    <img src="${ride.image}" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
-                    <div>
-                        <h4 class="font-bold text-gray-500 line-through">${ride.title}</h4>
-                        <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA</p>
-                    </div>
-                </div>`;
-            }
-
-            // 2. Pega a próxima carona disponível (que não seja sua)
-            const upcomingAvailable = dbRides
-                .filter(ride => {
-                    const [year, month, day] = ride.date.split('-').map(Number);
-                    return new Date(year, month - 1, day) >= today && !ride.driver.name.includes('(Você)');
-                })
-                .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            if (upcomingAvailable.length > 0) {
-                const ride = upcomingAvailable[0]; // Pega a mais próxima
-                const vagasText = ride.seats > 0 ? `${ride.seats} vaga${ride.seats > 1 ? 's' : ''}` : 'Lotado';
-                container.innerHTML += `
-                <div class="bg-cyan-50 p-4 rounded-lg shadow-sm border border-cyan-200 flex items-center space-x-4 hover:shadow-md transition cursor-pointer" onclick="navigateToRideDetail('${ride.id}')">
-                    <img src="${ride.image}" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
-                    <div>
-                        <h4 class="font-bold text-cyan-900">${ride.title}</h4>
-                        <p class="text-sm text-gray-600">${getRelativeDate(ride.date)}, ${ride.time} • ${vagasText}</p>
-                    </div>
-                </div>`;
-            }
-            
-            if (container.innerHTML === '') {
-                container.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhuma carona próxima a você no momento.</p>';
-            }
-        }
 
         function renderRides(ridesToRender) {
             const container = document.getElementById('ride-list-container');
@@ -1343,7 +1298,7 @@
 
 
             // 3. Processa Caronas Oferecidas (Motorista)
-            const allRides = dbRides.concat(dbBooked);
+            const allRides = dbRides.concat(dbBooked); // Pega todas as caronas (ofertadas estão em dbRides)
             const offeredRides = allRides.filter(r => r.driver.name.includes(profileName));
 
             offeredRides.forEach(ride => {
@@ -1391,7 +1346,6 @@
         }
         
         /**
-         * [FUNÇÃO CORRIGIDA]
          * Renderiza a barra inferior de caronas agendadas
          */
         function renderBottomBar() {
@@ -1423,16 +1377,11 @@
 
         // --- 5. FUNÇÕES AUXILIARES E INICIALIZAÇÃO ---
 
-        /**
-         * [FUNÇÃO CORRIGIDA]
-         * Converte uma data (ex: '2025-11-10') em "Hoje", "Amanhã" ou "10/11"
-         */
         function getRelativeDate(dateString) {
             const today = new Date();
             const tomorrow = new Date();
             tomorrow.setDate(today.getDate() + 1);
 
-            // [CORREÇÃO DA DATA] Parse manual para evitar fuso
             const [year, month, day] = dateString.split('-').map(Number);
             const rideDate = new Date(year, month - 1, day); 
 
@@ -1510,6 +1459,7 @@
                 return;
             }
             
+            // Salva apenas o perfil
             localStorage.setItem('vaicomigo_profileName', newName);
             localStorage.setItem('vaicomigo_profileCourse', newCourse);
             localStorage.setItem('vaicomigo_profileBio', newBio);
@@ -1608,26 +1558,22 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             // Define a data de "hoje" para o protótipo
-            // Isso garante que "Hoje" e "Amanhã" sempre funcionem
-            // Vamos fixar "hoje" como 10 de Novembro de 2025
             const hojeFixo = new Date('2025-11-10T12:00:00.000Z');
             
-            // Substitui a função Date() global para fins de simulação
-            // Isso é um truque avançado, mas garante que o 'new Date()'
-            // sempre retorne 10/11/2025 no fuso horário local.
             Date = class extends Date {
                 constructor(date) {
                     if (date) {
                         super(date);
                     } else {
-                        // Se 'new Date()' for chamado sem argumentos, retorna nossa data fixa
                         super(hojeFixo);
                     }
                 }
             };
             
-            loadDatabases();
+            // [MUDANÇA] Carrega apenas o perfil
             loadProfileData(); 
+            // [MUDANÇA] Reseta as caronas toda vez que a página carrega
+            resetDatabases();
 
             let initialPage = 'page-home';
             if (location.hash) {
