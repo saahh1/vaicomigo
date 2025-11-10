@@ -147,7 +147,7 @@
                                 <img src="download (1).jpeg" alt="Miniatura do mapa" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='https://placehold.co/60x60/a5f3fc/0891b2?text=MAP'; this.onerror=null;">
                                 <div>
                                     <h4 class="font-bold text-gray-500 line-through">Lavras (Centro) → Biblioteca (UFLA)</h4>
-                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA</p>
+                                    <p class="text-sm font-bold text-green-600">CARONA JÁ AGENDADA (EXEMPLO)</p>
                                 </div>
                             </div>
                             
@@ -701,6 +701,7 @@
                     <img src="pexels-photo-733872.webp" alt="Avatar Motorista" class="w-10 h-10 rounded-full mr-3 border border-gray-200 object-cover" onerror="this.src='https://placehold.co/50x50/f0f0f0/gray?text=AP'; this.onerror=null;">
                     <div>
                         <h3 class="font-bold text-lg text-cyan-900">Ana Paula</h3>
+                        <p class="text-sm text-green-600">Online</p>
                     </div>
                 </div>
 
@@ -708,7 +709,7 @@
                     
                     <div class="flex justify-start">
                         <div class="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none max-w-xs sm:max-w-md">
-                            <p>Oi, Sabrina! Tudo certo para a carona de amanhã, 17:30?</p>
+                            <p>Olá, Sabrina! Tudo certo para a carona de amanhã, 17:30?</p>
                             <span class="text-xs text-gray-500 block text-right mt-1">10:30</span>
                         </div>
                     </div>
@@ -716,21 +717,21 @@
                     <div class="flex justify-end">
                         <div class="bg-cyan-600 text-white p-3 rounded-lg rounded-br-none max-w-xs sm:max-w-md">
                             <p>Oi Ana! Tudo certo sim! Te encontro na frente da biblioteca, pode ser?</p>
-                            <span class="text-xs text-cyan-100 block text-right mt-1">10:39</span>
+                            <span class="text-xs text-cyan-100 block text-right mt-1">10:31</span>
                         </div>
                     </div>
 
                     <div class="flex justify-start">
                         <div class="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none max-w-xs sm:max-w-md">
                             <p>Combinado! Meu carro é um Celta prata, placa HMA-1234. Te vejo lá!</p>
-                            <span class="text-xs text-gray-500 block text-right mt-1">10:47</span>
+                            <span class="text-xs text-gray-500 block text-right mt-1">10:32</span>
                         </div>
                     </div>
                     
                     <div class="flex justify-end">
                         <div class="bg-cyan-600 text-white p-3 rounded-lg rounded-br-none max-w-xs sm:max-w-md">
-                            <p>Perfeito! Até amanhã! </p>
-                            <span class="text-xs text-cyan-100 block text-right mt-1">10:50</span>
+                            <p>Perfeito! Até amanhã! 😄</p>
+                            <span class="text-xs text-cyan-100 block text-right mt-1">10:33</span>
                         </div>
                     </div>
                     </div>
@@ -784,6 +785,7 @@
 
         // --- BANCO DE DADOS PADRÃO ---
         
+        // [CORREÇÃO] Adicionada a propriedade 'mapURL' com links reais
         const defaultRideData = [
             {
                 id: 'r1',
@@ -795,7 +797,8 @@
                 time: '17:30',
                 seats: 2,
                 status: 'available',
-                image: 'mapa-1.png', // Imagem original da home
+                image: 'download (1).jpeg', 
+                mapURL: 'https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/@-21.2314803,-45.0123413,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!2m2!1d-45.0011657!2d-21.240885!1m5!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!2m2!1d-44.9768448!2d-21.2276878!3e0?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D', // <-- SEU LINK (1)
                 driver: {
                     name: 'Ana Paula',
                     avatar: 'pexels-photo-733872.webp',
@@ -814,7 +817,8 @@
                 time: '12:30',
                 seats: 1,
                 status: 'available',
-                image: 'mapa-2.png', // Imagem original da home
+                image: 'centro-lavras.webp', 
+                mapURL: 'https://www.google.com/maps/dir/Centro,+Lavras+-+MG,+37200-000/Biblioteca+Universit%C3%A1ria+-+UFLA,+Universidade+Federal+de+Lavras+s%2Fn+Campus+universit%C3%A1rio,+Lavras+-+MG,+37200-000/@-21.2314803,-45.0123413,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x94caacccdb5419a7:0x3c34b198aeee5244!2m2!1d-45.0011657!2d-21.240885!1m5!1m1!1s0x9ffddead990145:0xbb2f990d897e0e4a!2m2!1d-44.9768448!2d-21.2276878!3e0?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3Destes', // <-- SEU LINK (2)
                 driver: {
                     name: 'Carlos M.',
                     avatar: 'images (10).jpeg',
@@ -834,6 +838,7 @@
                 seats: 3,
                 status: 'available',
                 image: 'https://placehold.co/120x80/cffafe/0891b2?text=Sem foto',
+                mapURL: 'https://maps.app.goo.gl/w9v2iFp7q6F8gJkU9', // <-- Link de placeholder
                 driver: {
                     name: 'Mariana L.',
                     avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=ML',
@@ -853,6 +858,7 @@
                 seats: 2,
                 status: 'available',
                 image: 'https://placehold.co/120x80/a5f3fc/0891b2?text=Sem foto',
+                mapURL: 'https://maps.app.goo.gl/w9v2iFp7q6F8gJkU9', // <-- Link de placeholder
                 driver: {
                     name: 'Lucas F.',
                     avatar: 'https://placehold.co/50x50/f0f0f0/gray?text=LF',
@@ -980,6 +986,10 @@
             showPage(pageId);
         }
 
+        /**
+         * [FUNÇÃO CORRIGIDA]
+         * Agora usa 'ride.mapURL' para o link e 'ride.image' para a imagem.
+         */
         function navigateToRideDetail(rideId, isBookedRide = false) {
             let ride = dbRides.find(r => r.id === rideId);
             let rideIsFromBookedList = false;
@@ -989,10 +999,14 @@
                 rideIsFromBookedList = true;
             }
             
-            // [CORREÇÃO] Se a carona não for encontrada, verifica se é a 'r1' estática
+            // [CORREÇÃO] Se a carona não for encontrada, verifica se é a 'r1' estática (da home)
             if (!ride && rideId === 'r1') {
-                ride = defaultRideData.find(r => r.id === 'r1');
-                rideIsFromBookedList = true; // Força a barra a mostrar "Agendada"
+                // Encontra a 'r1' original nos dados padrão
+                const r1Data = JSON.parse(JSON.stringify(defaultRideData.find(r => r.id === 'r1')));
+                if (r1Data) {
+                    ride = r1Data;
+                    rideIsFromBookedList = true; // Força a barra a mostrar "Agendada"
+                }
             }
 
             if (!ride) {
@@ -1002,8 +1016,9 @@
 
             currentViewingRideId = rideId; 
 
-            document.getElementById('detail-map-image').src = ride.image;
-            document.getElementById('detail-map-link').href = `http://googleusercontent.com/maps.google.com/${ride.id}`;
+            // [CORREÇÃO APLICADA AQUI]
+            document.getElementById('detail-map-link').href = ride.mapURL; // <-- Usa o link real do mapa
+            document.getElementById('detail-map-image').src = ride.image; // <-- Usa a imagem (foto)
             
             document.getElementById('detail-driver-avatar').src = ride.driver.avatar;
             document.getElementById('detail-driver-name').innerText = ride.driver.name;
@@ -1059,9 +1074,6 @@
             bookedRide.status = 'booked';
             dbBooked.push(bookedRide);
 
-            // [MUDANÇA] Não salva mais no localStorage
-            // saveDatabases();
-
             currentViewingRideId = null;
             navigateTo('page-confirm');
         }
@@ -1080,10 +1092,7 @@
             const [cancelledRide] = dbBooked.splice(rideIndex, 1);
             
             cancelledRide.status = 'available';
-            dbRides.push(cancelledRide); // Devolve para a lista de disponíveis
-
-            // [MUDANÇA] Não salva mais no localStorage
-            // saveDatabases();
+            dbRides.push(cancelledRide); 
 
             alert('Carona cancelada com sucesso.');
             
@@ -1116,6 +1125,7 @@
                 seats: seats,
                 status: 'available',
                 image: 'https://placehold.co/120x80/cffafe/0891b2?text=NOVA',
+                mapURL: 'https://maps.app.goo.gl/w9v2iFp7q6F8gJkU9', // Link padrão
                 driver: { 
                     name: profileName + ' (Você)',
                     avatar: 'perfil-sabrina.png',
@@ -1126,8 +1136,6 @@
             };
             
             dbRides.unshift(newRide); 
-            // [MUDANÇA] Não salva mais no localStorage
-            // saveDatabases();
 
             document.getElementById('offer-from').value = '';
             document.getElementById('offer-to').value = '';
@@ -1150,7 +1158,7 @@
 
             if (mensagem === '') return; 
 
-            const escapedMessage = mensagem.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const escapedMessage = mensagem.replace(/</g, "<").replace(/>/g, ">");
             
             const novaMensagemHTML = `
             <div class="flex justify-end">
@@ -1580,7 +1588,3 @@
 
 </body>
 </html>
-
-
-
-
